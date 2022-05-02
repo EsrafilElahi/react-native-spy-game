@@ -11,7 +11,7 @@ import StartScreen from "./screens/StartScreen";
 import CardScreen from "./screens/CardScreen";
 import TimerScreen from "./screens/TimerScreen";
 import FinishScreen from "./screens/FinishScreen";
-import AboutScreen from "./screens/AboutScreen";
+import ChangeCategoryScreen from "./screens/ChangeCategoryScreen";
 
 const Stack = createNativeStackNavigator();
 I18nManager.allowRTL(true);
@@ -24,6 +24,7 @@ const customFonts = {
 
 export default function App() {
   const [isFontLoaded] = useFonts(customFonts);
+  const [fuck, setFuck] = useState("fuck");
 
   if (!isFontLoaded) {
     return null;
@@ -38,7 +39,10 @@ export default function App() {
         >
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Start" component={StartScreen} />
-          <Stack.Screen name="About" component={AboutScreen} />
+          <Stack.Screen
+            name="ChangeCategory"
+            component={ChangeCategoryScreen}
+          />
           <Stack.Screen name="Card" component={CardScreen} />
           <Stack.Screen name="Timer" component={TimerScreen} />
           <Stack.Screen name="Finish" component={FinishScreen} />

@@ -16,7 +16,7 @@ const customFonts = {
   vahid: require("../assets/fonts/vahid.ttf"),
 };
 
-const FinishScreen = () => {
+const LocationScreen = () => {
   const [isFontLoaded] = useFonts(customFonts);
 
   if (!isFontLoaded) {
@@ -25,12 +25,12 @@ const FinishScreen = () => {
 
   return (
     <View>
-      <Text>FinishScreen</Text>
+      <Text>LocationScreen</Text>
     </View>
   );
 };
 
-export default FinishScreen;
+export default LocationScreen;
 
 const styles = StyleSheet.create({
   container: {

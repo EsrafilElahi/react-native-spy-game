@@ -4,7 +4,9 @@ import { Platform, BackHandler, ToastAndroid } from "react-native";
 
 export const ExecuteOnlyOnAndroid = (props) => {
   const { message } = props;
+
   const [exitApp, setExitApp] = useState(0);
+
   const backAction = () => {
     setTimeout(() => {
       setExitApp(0);
@@ -19,6 +21,7 @@ export const ExecuteOnlyOnAndroid = (props) => {
     }
     return true;
   };
+
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
@@ -26,11 +29,12 @@ export const ExecuteOnlyOnAndroid = (props) => {
     );
     return () => backHandler.remove();
   });
+  
   return <></>;
 };
 
 export default function DoubleTapToClose(props) {
-  const { message = "tap back again to exit the App" } = props;
+  const { message } = props;
   return Platform.OS !== "ios" ? (
     <ExecuteOnlyOnAndroid message={message} />
   ) : (

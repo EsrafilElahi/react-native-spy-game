@@ -5,6 +5,9 @@ import {
   StatusBar,
   SafeAreaView,
   Dimensions,
+  Platform,
+  BackHandler,
+  ToastAndroid,
   TouchableOpacity,
 } from "react-native";
 import {
@@ -21,20 +24,52 @@ import {
 import { useFonts } from "expo-font";
 import * as Localization from "expo-localization";
 import i18n from "i18n-js";
-import { en, fa } from "../i18n/languages";
+import { en, fa } from "../i18n/locales";
+import Btn from "../components/Btn";
 
 const customFonts = {
   farsan: require("../assets/fonts/farsan.ttf"),
   vahid: require("../assets/fonts/vahid.ttf"),
 };
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = ({ navigation, route }) => {
   const [isFontLoaded] = useFonts(customFonts);
   const [language, setLanguage] = useState("fa-IR");
+  const [exitApp, setExitApp] = useState(0);
+
+  useEffect(() => {
+    console.log("route?.params.category", route.params?.category);
+  }, [route.params?.category]);
 
   i18n.fallbacks = true;
   i18n.translations = { en, fa };
   i18n.locale = language;
+
+  // const backAction = () => {
+  //   setTimeout(() => {
+  //     setExitApp(0);
+  //   }, 2000); // 2 seconds to tap second-time
+
+  //   if (exitApp === 0) {
+  //     setExitApp((prev) => prev + 1);
+
+  //     ToastAndroid.show(
+  //       "please press back button again to exit app",
+  //       ToastAndroid.SHORT
+  //     );
+  //   } else if (exitApp === 1) {
+  //     BackHandler.exitApp();
+  //   }
+  //   return true;
+  // };
+
+  // useEffect(() => {
+  //   const backHandler = BackHandler.addEventListener(
+  //     "hardwareBackPress",
+  //     backAction
+  //   );
+  //   return () => backHandler.remove();
+  // });
 
   if (!isFontLoaded) {
     return null;
@@ -55,7 +90,12 @@ const HomeScreen = ({ navigation }) => {
       <Box
         style={[
           styles.title,
-          { flexDirection: language == "en-US" ? "row" : "row-reverse" },
+          {
+            flexDirection:
+              language == "en-US" || Localization.locale == "fa-IR"
+                ? "row"
+                : "row-reverse",
+          },
         ]}
       >
         <Text
@@ -90,7 +130,6 @@ const HomeScreen = ({ navigation }) => {
             onPress={() =>
               navigation.navigate("Start", {
                 language,
-                setLanguage,
               })
             }
             variant="outline"
@@ -108,9 +147,8 @@ const HomeScreen = ({ navigation }) => {
         <TouchableOpacity style={{ width: "100%", marginTop: 30 }}>
           <Button
             onPress={() =>
-              navigation.navigate("About", {
+              navigation.navigate("ChangeCategory", {
                 language,
-                setLanguage,
               })
             }
             variant="outline"
@@ -121,7 +159,7 @@ const HomeScreen = ({ navigation }) => {
                 { fontFamily: language == "en-US" ? "farsan" : "vahid" },
               ]}
             >
-              {i18n.t("about")}
+              {i18n.t("ChangeCategory")}
             </Text>
           </Button>
         </TouchableOpacity>
@@ -133,6 +171,18 @@ const HomeScreen = ({ navigation }) => {
             color: "white",
             fontFamily: "farsan",
             fontSize: 15,
+          }}
+          letterSpacing="lg"
+        >
+          Esrafil.Elahi@Gmail.Com {""}
+        </Text>
+        <Text
+          letterSpacing="lg"
+          style={{
+            color: "white",
+            fontFamily: "farsan",
+            fontSize: 15,
+            marginTop: 5,
           }}
         >
           © CopyRight 2022 {""}
@@ -162,6 +212,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "white",
     fontSize: 23,
+    paddingTop: 5,
   },
   lang: {
     display: "flex",
@@ -212,6 +263,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 20,
     paddingVertical: 3,
+    // paddingTop: 7,
   },
   developed: {
     display: "flex",

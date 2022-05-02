@@ -24,4 +24,6 @@ export const theme = extendTheme({
     // Changing initialColorMode to 'dark'
     initialColorMode: "dark",
   },
+  fonts: {
+  },
 });

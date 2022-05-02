@@ -5,7 +5,7 @@ import { Text, Box } from "native-base";
 import { useFonts } from "expo-font";
 import * as Localization from "expo-localization";
 import i18n from "i18n-js";
-import { en, fa } from "../i18n/languages";
+import { en, fa } from "../i18n/locales";
 
 i18n.fallbacks = true;
 i18n.translations = { en, fa };
