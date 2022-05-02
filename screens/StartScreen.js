@@ -36,7 +36,7 @@ const customFonts = {
 };
 
 const StartScreen = ({ navigation, route }) => {
-  const { language } = route.params;
+  const { language, category } = route.params;
   const [isFontLoaded] = useFonts(customFonts);
 
   const [players, setPlayers] = useState(3);
@@ -193,9 +193,11 @@ const StartScreen = ({ navigation, route }) => {
             onPress={() =>
               navigation.navigate("Card", {
                 language,
-                players,
-                spies,
-                timer,
+                data: {
+                  players,
+                  spies,
+                  timer,
+                },
               })
             }
             variant="outline"

@@ -13,6 +13,11 @@ import TimerScreen from "./screens/TimerScreen";
 import FinishScreen from "./screens/FinishScreen";
 import ChangeCategoryScreen from "./screens/ChangeCategoryScreen";
 
+import LocationScreen from "./screens/categories/LocationScreen";
+import ThingScreen from "./screens/categories/ThingScreen";
+import VariousWordScreen from "./screens/categories/VariousWordScreen";
+import MixAllCategoryScreen from "./screens/categories/MixAllCategoryScreen";
+
 const Stack = createNativeStackNavigator();
 I18nManager.allowRTL(true);
 I18nManager.forceRTL(false);
@@ -46,6 +51,10 @@ export default function App() {
           <Stack.Screen name="Card" component={CardScreen} />
           <Stack.Screen name="Timer" component={TimerScreen} />
           <Stack.Screen name="Finish" component={FinishScreen} />
+          <Stack.Screen name="location" component={LocationScreen} />
+          <Stack.Screen name="things" component={ThingScreen} />
+          <Stack.Screen name="various" component={VariousWordScreen} />
+          <Stack.Screen name="mix" component={MixAllCategoryScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </NativeBaseProvider>

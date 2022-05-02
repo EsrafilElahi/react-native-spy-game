@@ -38,7 +38,10 @@ const HomeScreen = ({ navigation, route }) => {
   const [exitApp, setExitApp] = useState(0);
 
   useEffect(() => {
-    console.log("route?.params.category", route.params?.category);
+    console.log(
+      "route?.params.category --> ",
+      route.params?.category ?? "location"
+    );
   }, [route.params?.category]);
 
   i18n.fallbacks = true;
@@ -130,6 +133,7 @@ const HomeScreen = ({ navigation, route }) => {
             onPress={() =>
               navigation.navigate("Start", {
                 language,
+                category: route.params?.category ?? "location",
               })
             }
             variant="outline"
@@ -149,6 +153,7 @@ const HomeScreen = ({ navigation, route }) => {
             onPress={() =>
               navigation.navigate("ChangeCategory", {
                 language,
+                cat: route.params?.category ?? "location",
               })
             }
             variant="outline"

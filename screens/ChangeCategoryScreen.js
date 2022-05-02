@@ -31,6 +31,11 @@ import * as Localization from "expo-localization";
 import i18n from "i18n-js";
 import { en, fa } from "../i18n/locales";
 
+import LocationScreen from "./categories/LocationScreen";
+import ThingScreen from "./categories/ThingScreen";
+import VariousWordScreen from "./categories/VariousWordScreen";
+import MixAllCategoryScreen from "./categories/MixAllCategoryScreen";
+
 i18n.fallbacks = true;
 i18n.translations = { en, fa };
 
@@ -40,9 +45,28 @@ const customFonts = {
 };
 
 const ChangeCategoryScreen = ({ navigation, route }) => {
-  const { language } = route.params;
+  const { language, cat } = route.params;
   const [isFontLoaded] = useFonts(customFonts);
-  const [category, setCategory] = useState(i18n.t("location"));
+  const [category, setCategory] = useState(cat ?? "location");
+  // const [categoryScreens, setCategoryScreens] = useState({});
+
+  // const loadCategoryscreens = async () => {
+  //   setCategoryScreens({
+  //     location: await require("./categories/LocationScreen"),
+  //     things: await require("./categories/ThingScreen"),
+  //     various: await require("./categories/VariousWordScreen"),
+  //     mix: await require("./categories/MixAllCategoryScreen"),
+  //   });
+  // };
+
+  // useEffect(() => {
+  //   loadCategoryscreens();
+  // }, []);
+
+  useEffect(() => {
+    console.log("category =>", category);
+    console.log("cat =>", cat);
+  }, []);
 
   if (!isFontLoaded) {
     return null;
@@ -52,26 +76,25 @@ const ChangeCategoryScreen = ({ navigation, route }) => {
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
 
-      <Box style={styles.back_icon}>
-        <Pressable
-          onPress={() =>
-            navigation.navigate({
-              name: "Home",
-              params: { category },
-              merge: true,
-            })
-          }
-        >
-          <AntDesign
-            style={{
-              textAlign: "center",
-            }}
-            name="left"
-            size={15}
-            color="white"
-          />
-        </Pressable>
-      </Box>
+      <Pressable
+        style={styles.back_icon}
+        onPress={() =>
+          navigation.navigate({
+            name: "Home",
+            params: { category },
+            merge: true,
+          })
+        }
+      >
+        <AntDesign
+          style={{
+            textAlign: "center",
+          }}
+          name="left"
+          size={15}
+          color="white"
+        />
+      </Pressable>
 
       <Box
         style={[
@@ -85,7 +108,7 @@ const ChangeCategoryScreen = ({ navigation, route }) => {
               fontFamily: language === "en-US" ? "farsan" : "vahid",
               fontSize: language === "en-US" ? 16 : 17,
             }}
-            selectedValue={category}
+            selectedValue={cat === category ? cat : category}
             mt={1}
             onValueChange={(itemValue) => setCategory(itemValue)}
             _selectedItem={{
@@ -95,7 +118,7 @@ const ChangeCategoryScreen = ({ navigation, route }) => {
           >
             <Select.Item
               label={i18n.t("location")}
-              value={i18n.t("location")}
+              value="location"
               _text={{
                 fontSize: language === "en-US" ? 16 : 17,
                 paddingTop: language === "en-US" ? 0.5 : 1.5,
@@ -105,7 +128,7 @@ const ChangeCategoryScreen = ({ navigation, route }) => {
             />
             <Select.Item
               label={i18n.t("things")}
-              value={i18n.t("things")}
+              value="things"
               _text={{
                 fontSize: language === "en-US" ? 16 : 18,
                 paddingTop: language === "en-US" ? 0.5 : 1.5,
@@ -115,7 +138,7 @@ const ChangeCategoryScreen = ({ navigation, route }) => {
             />
             <Select.Item
               label={i18n.t("variousWord")}
-              value={i18n.t("variousWord")}
+              value="various"
               _text={{
                 fontSize: language === "en-US" ? 16 : 17,
                 paddingTop: language === "en-US" ? 0.5 : 1.5,
@@ -125,7 +148,7 @@ const ChangeCategoryScreen = ({ navigation, route }) => {
             />
             <Select.Item
               label={i18n.t("mixAllCategory")}
-              value={i18n.t("mixAllCategory")}
+              value="mix"
               _text={{
                 fontSize: language === "en-US" ? 16 : 17,
                 paddingTop: language === "en-US" ? 0.5 : 1.5,
@@ -157,9 +180,19 @@ const ChangeCategoryScreen = ({ navigation, route }) => {
         <TouchableOpacity style={{ width: "100%", marginTop: 30 }}>
           <Button
             onPress={() =>
-              navigation.navigate("Home", {
-                language,
-              })
+              navigation.navigate(
+                category === "location"
+                  ? "location"
+                  : category === "things"
+                  ? "things"
+                  : category === "various"
+                  ? "various"
+                  : "mix",
+                {
+                  language,
+                  category,
+                }
+              )
             }
             variant="outline"
           >
@@ -176,7 +209,6 @@ const ChangeCategoryScreen = ({ navigation, route }) => {
             </Text>
           </Button>
         </TouchableOpacity>
-        {/* <Text>{category}</Text> */}
       </Box>
     </SafeAreaView>
   );

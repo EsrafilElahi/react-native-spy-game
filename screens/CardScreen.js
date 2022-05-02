@@ -16,7 +16,8 @@ const customFonts = {
   vahid: require("../assets/fonts/vahid.ttf"),
 };
 
-const Cards = () => {
+const Cards = ({ navigation, route }) => {
+  const { language, data } = route.params;
   const [isFontLoaded] = useFonts(customFonts);
 
   if (!isFontLoaded) {
