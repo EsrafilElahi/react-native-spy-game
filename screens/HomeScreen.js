@@ -26,6 +26,7 @@ import * as Localization from "expo-localization";
 import i18n from "i18n-js";
 import { en, fa } from "../i18n/locales";
 import Btn from "../components/Btn";
+import { uuid } from "../components/Uuid";
 
 const customFonts = {
   farsan: require("../assets/fonts/farsan.ttf"),
@@ -37,12 +38,187 @@ const HomeScreen = ({ navigation, route }) => {
   const [language, setLanguage] = useState("fa-IR");
   const [exitApp, setExitApp] = useState(0);
 
+  const [locationData, setLocationData] = useState([
+    {
+      en: " bank ",
+      fa: " بانک ",
+      isEnabled: true,
+      id: uuid(),
+    },
+    {
+      en: " restaurant ",
+      fa: " رستوران ",
+      isEnabled: true,
+      id: uuid(),
+    },
+    {
+      en: " masque ",
+      fa: " مسجد ",
+      isEnabled: true,
+      id: uuid(),
+    },
+    {
+      en: " airport ",
+      fa: " فرودگاه ",
+      isEnabled: true,
+      id: uuid(),
+    },
+    {
+      en: " hotel ",
+      fa: " هتل ",
+      isEnabled: true,
+      id: uuid(),
+    },
+    {
+      en: " school ",
+      fa: " مدرسه ",
+      isEnabled: true,
+      id: uuid(),
+    },
+  ]);
+  const [thingsData, setThingsData] = useState([
+    {
+      en: " pencil ",
+      fa: " مداد ",
+      isEnabled: true,
+      id: uuid(),
+    },
+    {
+      en: " mobile ",
+      fa: " موبایل ",
+      isEnabled: true,
+      id: uuid(),
+    },
+    {
+      en: " shoes ",
+      fa: " کفش ",
+      isEnabled: true,
+      id: uuid(),
+    },
+    {
+      en: " car ",
+      fa: " ماشین ",
+      isEnabled: true,
+      id: uuid(),
+    },
+    {
+      en: " tv ",
+      fa: " تلویزیون ",
+      isEnabled: true,
+      id: uuid(),
+    },
+    {
+      en: " toy ",
+      fa: " اسباب بازی ",
+      isEnabled: true,
+      id: uuid(),
+    },
+  ]);
+  const [variousData, setVariousData] = useState([
+    {
+      en: " marriage ",
+      fa: " ازدواج ",
+      isEnabled: true,
+      id: uuid(),
+    },
+    {
+      en: " dream ",
+      fa: " رویا ",
+      isEnabled: true,
+      id: uuid(),
+    },
+    {
+      en: " party ",
+      fa: " جشن ",
+      isEnabled: true,
+      id: uuid(),
+    },
+    {
+      en: " happy ",
+      fa: " خوشحال ",
+      isEnabled: true,
+      id: uuid(),
+    },
+    {
+      en: " water ",
+      fa: " آب ",
+      isEnabled: true,
+      id: uuid(),
+    },
+    {
+      en: " jungle ",
+      fa: " جنگل ",
+      isEnabled: true,
+      id: uuid(),
+    },
+  ]);
+  const [mixData, setMixData] = useState([
+    {
+      en: " bank ",
+      fa: " بانک ",
+      isEnabled: true,
+      id: uuid(),
+    },
+    {
+      en: " party ",
+      fa: " جشن ",
+      isEnabled: true,
+      id: uuid(),
+    },
+    {
+      en: " shoes ",
+      fa: " کفش ",
+      isEnabled: true,
+      id: uuid(),
+    },
+    {
+      en: " car ",
+      fa: " ماشین ",
+      isEnabled: true,
+      id: uuid(),
+    },
+    {
+      en: " marriage ",
+      fa: " ازدواج ",
+      isEnabled: true,
+      id: uuid(),
+    },
+    {
+      en: " boy ",
+      fa: " پسر ",
+      isEnabled: true,
+      id: uuid(),
+    },
+  ]);
+
   useEffect(() => {
     console.log(
       "route?.params.category --> ",
       route.params?.category ?? "location"
     );
-  }, [route.params?.category]);
+    console.log(
+      "route?.params.locationDataHome --> ",
+      route.params?.locationDataHome ?? locationData
+    );
+    console.log(
+      "route?.params.thingsDataHome --> ",
+      route.params?.thingsDataHome ?? thingsData
+    );
+    console.log(
+      "route?.params.variousDataHome --> ",
+      route.params?.variousDataHome ?? variousData
+    );
+    console.log(
+      "route?.params.mixDataHome --> ",
+      route.params?.mixDataHome ?? mixData
+    );
+  }, [
+    route.params?.category,
+    route.params?.locationDataHome,
+    route.params?.thingsDataHome,
+    route.params?.variousDataHome,
+    route.params?.mixDataHome,
+  ]);
 
   i18n.fallbacks = true;
   i18n.translations = { en, fa };
@@ -72,7 +248,7 @@ const HomeScreen = ({ navigation, route }) => {
   //     backAction
   //   );
   //   return () => backHandler.remove();
-  // });
+  // },[]);
 
   if (!isFontLoaded) {
     return null;
@@ -154,6 +330,10 @@ const HomeScreen = ({ navigation, route }) => {
               navigation.navigate("ChangeCategory", {
                 language,
                 cat: route.params?.category ?? "location",
+                lh: route.params?.locationDataHome ?? locationData,
+                th: route.params?.thingsDataHome ?? thingsData,
+                vh: route.params?.variousDataHome ?? variousData,
+                mh: route.params?.mixDataHome ?? mixData,
               })
             }
             variant="outline"
@@ -266,7 +446,7 @@ const styles = StyleSheet.create({
   btn: {
     textAlign: "center",
     color: "white",
-    fontSize: 20,
+    fontSize: 22,
     paddingVertical: 3,
     // paddingTop: 7,
   },

@@ -6,7 +6,7 @@ import {
   SafeAreaView,
   Dimensions,
   TouchableOpacity,
-  AsyncStorageStatic,
+  BackHandler,
 } from "react-native";
 import {
   Text,
@@ -30,6 +30,7 @@ import { useFonts } from "expo-font";
 import * as Localization from "expo-localization";
 import i18n from "i18n-js";
 import { en, fa } from "../i18n/locales";
+import { uuid } from "../components/Uuid";
 
 import LocationScreen from "./categories/LocationScreen";
 import ThingScreen from "./categories/ThingScreen";
@@ -45,9 +46,200 @@ const customFonts = {
 };
 
 const ChangeCategoryScreen = ({ navigation, route }) => {
-  const { language, cat } = route.params;
+  const { language, cat, lh, th, vh, mh } = route.params;
   const [isFontLoaded] = useFonts(customFonts);
   const [category, setCategory] = useState(cat ?? "location");
+
+  const [locationData, setLocationData] = useState(
+    lh ?? [
+      {
+        en: " bank ",
+        fa: " بانک ",
+        isEnabled: true,
+        id: uuid(),
+      },
+      {
+        en: " restaurant ",
+        fa: " رستوران ",
+        isEnabled: true,
+        id: uuid(),
+      },
+      {
+        en: " masque ",
+        fa: " مسجد ",
+        isEnabled: true,
+        id: uuid(),
+      },
+      {
+        en: " airport ",
+        fa: " فرودگاه ",
+        isEnabled: true,
+        id: uuid(),
+      },
+      {
+        en: " hotel ",
+        fa: " هتل ",
+        isEnabled: true,
+        id: uuid(),
+      },
+      {
+        en: " school ",
+        fa: " مدرسه ",
+        isEnabled: true,
+        id: uuid(),
+      },
+    ]
+  );
+  const [thingsData, setThingsData] = useState(
+    th ?? [
+      {
+        en: " pencil ",
+        fa: " مداد ",
+        isEnabled: true,
+        id: uuid(),
+      },
+      {
+        en: " mobile ",
+        fa: " موبایل ",
+        isEnabled: true,
+        id: uuid(),
+      },
+      {
+        en: " shoes ",
+        fa: " کفش ",
+        isEnabled: true,
+        id: uuid(),
+      },
+      {
+        en: " car ",
+        fa: " ماشین ",
+        isEnabled: true,
+        id: uuid(),
+      },
+      {
+        en: " tv ",
+        fa: " تلویزیون ",
+        isEnabled: true,
+        id: uuid(),
+      },
+      {
+        en: " toy ",
+        fa: " اسباب بازی ",
+        isEnabled: true,
+        id: uuid(),
+      },
+    ]
+  );
+  const [variousData, setVariousData] = useState(
+    vh ?? [
+      {
+        en: " marriage ",
+        fa: " ازدواج ",
+        isEnabled: true,
+        id: uuid(),
+      },
+      {
+        en: " dream ",
+        fa: " رویا ",
+        isEnabled: true,
+        id: uuid(),
+      },
+      {
+        en: " party ",
+        fa: " جشن ",
+        isEnabled: true,
+        id: uuid(),
+      },
+      {
+        en: " happy ",
+        fa: " خوشحال ",
+        isEnabled: true,
+        id: uuid(),
+      },
+      {
+        en: " water ",
+        fa: " آب ",
+        isEnabled: true,
+        id: uuid(),
+      },
+      {
+        en: " jungle ",
+        fa: " جنگل ",
+        isEnabled: true,
+        id: uuid(),
+      },
+    ]
+  );
+  const [mixData, setMixData] = useState(
+    mh ?? [
+      {
+        en: " bank ",
+        fa: " بانک ",
+        isEnabled: true,
+        id: uuid(),
+      },
+      {
+        en: " party ",
+        fa: " جشن ",
+        isEnabled: true,
+        id: uuid(),
+      },
+      {
+        en: " shoes ",
+        fa: " کفش ",
+        isEnabled: true,
+        id: uuid(),
+      },
+      {
+        en: " car ",
+        fa: " ماشین ",
+        isEnabled: true,
+        id: uuid(),
+      },
+      {
+        en: " marriage ",
+        fa: " ازدواج ",
+        isEnabled: true,
+        id: uuid(),
+      },
+      {
+        en: " boy ",
+        fa: " پسر ",
+        isEnabled: true,
+        id: uuid(),
+      },
+    ]
+  );
+
+  // const paramsHome = {
+  //   category,
+  //   route.params?.locationData ?? locationData,
+  //   thingsData,
+  //   variousData,
+  //   mixData,
+  // };
+
+  useEffect(() => {
+    console.log(
+      "route?.params.locationData --> ",
+      route.params?.locationData ?? locationData
+    );
+    console.log(
+      "route?.params.thingsData --> ",
+      route.params?.thingsData ?? thingsData
+    );
+    console.log(
+      "route?.params.variousData --> ",
+      route.params?.variousData ?? variousData
+    );
+    console.log("route?.params.mixData --> ", route.params?.mixData ?? mixData);
+  }, [
+    route.params?.locationData,
+    route.params?.thingsData,
+    route.params?.variousData,
+    route.params?.mixData,
+  ]);
+
   // const [categoryScreens, setCategoryScreens] = useState({});
 
   // const loadCategoryscreens = async () => {
@@ -63,10 +255,10 @@ const ChangeCategoryScreen = ({ navigation, route }) => {
   //   loadCategoryscreens();
   // }, []);
 
-  useEffect(() => {
-    console.log("category =>", category);
-    console.log("cat =>", cat);
-  }, []);
+  // useEffect(() => {
+  //   console.log("category =>", category);
+  //   console.log("cat =>", cat);
+  // }, []);
 
   if (!isFontLoaded) {
     return null;
@@ -81,7 +273,13 @@ const ChangeCategoryScreen = ({ navigation, route }) => {
         onPress={() =>
           navigation.navigate({
             name: "Home",
-            params: { category },
+            params: {
+              category,
+              locationDataHome: route.params?.locationData ?? locationData,
+              thingsDataHome: route.params?.thingsData ?? thingsData,
+              variousDataHome: route.params?.variousData ?? variousData,
+              mixDataHome: route.params?.mixData ?? mixData,
+            },
             merge: true,
           })
         }
@@ -106,7 +304,7 @@ const ChangeCategoryScreen = ({ navigation, route }) => {
           <Select
             style={{
               fontFamily: language === "en-US" ? "farsan" : "vahid",
-              fontSize: language === "en-US" ? 16 : 17,
+              fontSize: language === "en-US" ? 18 : 19,
             }}
             selectedValue={cat === category ? cat : category}
             mt={1}
@@ -115,12 +313,15 @@ const ChangeCategoryScreen = ({ navigation, route }) => {
               bg: "teal.500",
               borderRadius: 10,
             }}
+            _item={{
+              marginVertical: 5,
+            }}
           >
             <Select.Item
               label={i18n.t("location")}
               value="location"
               _text={{
-                fontSize: language === "en-US" ? 16 : 17,
+                fontSize: language === "en-US" ? 18 : 19,
                 paddingTop: language === "en-US" ? 0.5 : 1.5,
                 fontFamily: language === "en-US" ? "farsan" : "vahid",
                 letterSpacing: "lg",
@@ -130,7 +331,7 @@ const ChangeCategoryScreen = ({ navigation, route }) => {
               label={i18n.t("things")}
               value="things"
               _text={{
-                fontSize: language === "en-US" ? 16 : 18,
+                fontSize: language === "en-US" ? 18 : 19,
                 paddingTop: language === "en-US" ? 0.5 : 1.5,
                 fontFamily: language === "en-US" ? "farsan" : "vahid",
                 letterSpacing: "lg",
@@ -140,7 +341,7 @@ const ChangeCategoryScreen = ({ navigation, route }) => {
               label={i18n.t("variousWord")}
               value="various"
               _text={{
-                fontSize: language === "en-US" ? 16 : 17,
+                fontSize: language === "en-US" ? 18 : 19,
                 paddingTop: language === "en-US" ? 0.5 : 1.5,
                 fontFamily: language === "en-US" ? "farsan" : "vahid",
                 letterSpacing: "lg",
@@ -150,7 +351,7 @@ const ChangeCategoryScreen = ({ navigation, route }) => {
               label={i18n.t("mixAllCategory")}
               value="mix"
               _text={{
-                fontSize: language === "en-US" ? 16 : 17,
+                fontSize: language === "en-US" ? 18 : 19,
                 paddingTop: language === "en-US" ? 0.5 : 1.5,
                 fontFamily: language === "en-US" ? "farsan" : "vahid",
                 letterSpacing: "lg",
@@ -163,7 +364,7 @@ const ChangeCategoryScreen = ({ navigation, route }) => {
             style={{
               textAlign: language == "en-US" ? "left" : "right",
               fontFamily: language == "en-US" ? "farsan" : "vahid",
-              fontSize: language == "en-US" ? 19 : 20,
+              fontSize: language == "en-US" ? 21 : 23,
             }}
           >
             {i18n.t("category")}
@@ -190,7 +391,18 @@ const ChangeCategoryScreen = ({ navigation, route }) => {
                   : "mix",
                 {
                   language,
-                  category,
+                  // allData:
+                  //   category === "location"
+                  //     ? route.params?.locationData ?? locationData
+                  //     : category === "things"
+                  //     ? route.params?.thingsData ?? thingsData
+                  //     : category === "various"
+                  //     ? route.params?.variousData ?? variousData
+                  //     : route.params?.mixData ?? mixData,
+                  loc: route.params?.locationData ?? locationData,
+                  thing: route.params?.thingsData ?? thingsData,
+                  various: route.params?.variousData ?? variousData,
+                  mix: route.params?.mixData ?? mixData,
                 }
               )
             }
@@ -201,11 +413,11 @@ const ChangeCategoryScreen = ({ navigation, route }) => {
                 styles.btn,
                 {
                   fontFamily: language == "en-US" ? "farsan" : "vahid",
-                  fontSize: language == "en-US" ? 19 : 20,
+                  fontSize: language == "en-US" ? 20 : 21,
                 },
               ]}
             >
-              {i18n.t("addCase")}
+              {i18n.t("addCategoryCase")}
             </Text>
           </Button>
         </TouchableOpacity>

@@ -59,6 +59,7 @@ const StartScreen = ({ navigation, route }) => {
       >
         <Box w="1/2">
           <Select
+            style={{ fontFamily: "farsan", fontSize: 18 }}
             selectedValue={players}
             mt={1}
             onValueChange={(itemValue) => setPlayers(itemValue)}
@@ -67,29 +68,190 @@ const StartScreen = ({ navigation, route }) => {
               borderRadius: 10,
             }}
           >
-            <Select.Item label="3" value={3} />
-            <Select.Item label="4" value={4} />
-            <Select.Item label="5" value={5} />
-            <Select.Item label="6" value={6} />
-            <Select.Item label="7" value={7} />
-            <Select.Item label="8" value={8} />
-            <Select.Item label="9" value={9} />
-            <Select.Item label="10" value={10} />
-            <Select.Item label="11" value={11} />
-            <Select.Item label="12" value={12} />
-            <Select.Item label="13" value={13} />
-            <Select.Item label="14" value={14} />
-            <Select.Item label="15" value={15} />
-            <Select.Item label="16" value={16} />
-            <Select.Item label="17" value={17} />
-            <Select.Item label="18" value={18} />
-            <Select.Item label="19" value={19} />
-            <Select.Item label="20" value={20} />
-            <Select.Item label="21" value={21} />
-            <Select.Item label="22" value={22} />
-            <Select.Item label="23" value={23} />
-            <Select.Item label="24" value={24} />
-            <Select.Item label="25" value={25} />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 3 "
+              value={3}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 4 "
+              value={4}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 5 "
+              value={5}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 6 "
+              value={6}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 7 "
+              value={7}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 8 "
+              value={8}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 9 "
+              value={9}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 10 "
+              value={10}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 11 "
+              value={11}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 12 "
+              value={12}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 13 "
+              value={13}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 14 "
+              value={14}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 15 "
+              value={15}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 16 "
+              value={16}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 17 "
+              value={17}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 18 "
+              value={18}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 19 "
+              value={19}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 20 "
+              value={20}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 21 "
+              value={21}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 22 "
+              value={22}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 23 "
+              value={23}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 24 "
+              value={24}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 25 "
+              value={25}
+            />
           </Select>
         </Box>
         <Box w="1/2" style={{ marginTop: 10 }}>
@@ -97,7 +259,7 @@ const StartScreen = ({ navigation, route }) => {
             style={{
               textAlign: language == "en-US" ? "left" : "right",
               fontFamily: language == "en-US" ? "farsan" : "vahid",
-              fontSize: language == "en-US" ? 18 : 20,
+              fontSize: language == "en-US" ? 19 : 21,
             }}
           >
             {i18n.t("players")}
@@ -113,6 +275,7 @@ const StartScreen = ({ navigation, route }) => {
       >
         <Box w="1/2">
           <Select
+            style={{ fontFamily: "farsan", fontSize: 18 }}
             selectedValue={spies}
             mt={1}
             onValueChange={(itemValue) => setSpies(itemValue)}
@@ -121,16 +284,86 @@ const StartScreen = ({ navigation, route }) => {
               borderRadius: 10,
             }}
           >
-            <Select.Item label="1" value={1} />
-            <Select.Item label="2" value={2} />
-            <Select.Item label="3" value={3} />
-            <Select.Item label="4" value={4} />
-            <Select.Item label="5" value={5} />
-            <Select.Item label="6" value={6} />
-            <Select.Item label="7" value={7} />
-            <Select.Item label="8" value={8} />
-            <Select.Item label="9" value={9} />
-            <Select.Item label="10" value={10} />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 1 "
+              value={1}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 2 "
+              value={2}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 3 "
+              value={3}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 4 "
+              value={4}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 5 "
+              value={5}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 6 "
+              value={6}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 7 "
+              value={7}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 8 "
+              value={8}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 9 "
+              value={9}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 10 "
+              value={10}
+            />
           </Select>
         </Box>
         <Box w="1/2" style={{ marginTop: 10 }}>
@@ -138,7 +371,7 @@ const StartScreen = ({ navigation, route }) => {
             style={{
               textAlign: language == "en-US" ? "left" : "right",
               fontFamily: language == "en-US" ? "farsan" : "vahid",
-              fontSize: language == "en-US" ? 18 : 20,
+              fontSize: language == "en-US" ? 19 : 21,
             }}
           >
             {i18n.t("spies")}
@@ -154,6 +387,7 @@ const StartScreen = ({ navigation, route }) => {
       >
         <Box w="1/2">
           <Select
+            style={{ fontFamily: "farsan", fontSize: 18 }}
             selectedValue={timer}
             mt={1}
             onValueChange={(itemValue) => setTimer(itemValue)}
@@ -162,16 +396,86 @@ const StartScreen = ({ navigation, route }) => {
               borderRadius: 10,
             }}
           >
-            <Select.Item label="1" value={1} />
-            <Select.Item label="2" value={2} />
-            <Select.Item label="3" value={3} />
-            <Select.Item label="4" value={4} />
-            <Select.Item label="5" value={5} />
-            <Select.Item label="6" value={6} />
-            <Select.Item label="7" value={7} />
-            <Select.Item label="8" value={8} />
-            <Select.Item label="9" value={9} />
-            <Select.Item label="10" value={10} />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 1 "
+              value={1}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 2 "
+              value={2}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 3 "
+              value={3}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 4 "
+              value={4}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 5 "
+              value={5}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 6 "
+              value={6}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 7 "
+              value={7}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 8 "
+              value={8}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 9 "
+              value={9}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 10 "
+              value={10}
+            />
           </Select>
         </Box>
         <Box w="1/2" style={{ marginTop: 10 }}>
@@ -179,7 +483,7 @@ const StartScreen = ({ navigation, route }) => {
             style={{
               textAlign: language == "en-US" ? "left" : "right",
               fontFamily: language == "en-US" ? "farsan" : "vahid",
-              fontSize: language == "en-US" ? 18 : 20,
+              fontSize: language == "en-US" ? 19 : 21,
             }}
           >
             {i18n.t("timer")}
@@ -258,7 +562,7 @@ const styles = StyleSheet.create({
   btn: {
     textAlign: "center",
     color: "white",
-    fontSize: 20,
+    fontSize: 22,
     paddingVertical: 3,
     // paddingTop: 3,
   },

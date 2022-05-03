@@ -6,7 +6,8 @@ import {
   SafeAreaView,
   Dimensions,
   TouchableOpacity,
-  AsyncStorageStatic,
+  ScrollView,
+  FlatList,
 } from "react-native";
 import {
   Text,
@@ -30,6 +31,10 @@ import { useFonts } from "expo-font";
 import * as Localization from "expo-localization";
 import i18n from "i18n-js";
 import { en, fa } from "../../i18n/locales";
+import RenderItem from "../../components/RenderItem";
+import { data } from "./../../components/DATA";
+
+import { uuid } from "./../../components/Uuid";
 
 i18n.fallbacks = true;
 i18n.translations = { en, fa };
@@ -40,17 +45,107 @@ const customFonts = {
 };
 
 const LocationScreen = ({ navigation, route }) => {
-  const { language, categoty } = route.params;
+  const { language, loc } = route.params;
   const [isFontLoaded] = useFonts(customFonts);
+
+  const [locationData, setLocationData] = useState(
+    loc ?? [
+      {
+        en: " bank ",
+        fa: " بانک ",
+        isEnabled: true,
+        id: uuid(),
+      },
+      {
+        en: " restaurant ",
+        fa: " رستوران ",
+        isEnabled: true,
+        id: uuid(),
+      },
+      {
+        en: " masque ",
+        fa: " مسجد ",
+        isEnabled: true,
+        id: uuid(),
+      },
+      {
+        en: " airport ",
+        fa: " فرودگاه ",
+        isEnabled: true,
+        id: uuid(),
+      },
+      {
+        en: " hotel ",
+        fa: " هتل ",
+        isEnabled: true,
+        id: uuid(),
+      },
+      {
+        en: " school ",
+        fa: " مدرسه ",
+        isEnabled: true,
+        id: uuid(),
+      },
+    ]
+  );
+
+  const changeSwitch = (id) => {
+    let copyData = [...locationData];
+    let updatedData = copyData.map((item) => {
+      if (item.id === id) {
+        return { ...item, isEnabled: !item.isEnabled };
+      }
+      return item;
+    });
+    setLocationData(updatedData);
+  };
 
   if (!isFontLoaded) {
     return null;
   }
 
   return (
-    <View>
-      <Text>LocationScreen</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor="black" barStyle="light-content" />
+
+      <Box style={styles.header}>
+        <Pressable
+          style={styles.back_icon}
+          onPress={() =>
+            navigation.navigate({
+              name: "ChangeCategory",
+              params: { locationData },
+              merge: true,
+            })
+          }
+        >
+          <AntDesign
+            style={{
+              textAlign: "center",
+            }}
+            name="left"
+            size={15}
+            color="white"
+          />
+        </Pressable>
+        <Center>header</Center>
+      </Box>
+      <Box style={styles.list}>
+        <FlatList
+          data={locationData}
+          keyExtractor={(item, index) => index}
+          renderItem={({ item }) => (
+            <RenderItem
+              language={language}
+              item={language === "en-US" ? item.en : item.fa}
+              isEnabled={item.isEnabled}
+              id={item.id}
+              changeSwitch={changeSwitch}
+            />
+          )}
+        />
+      </Box>
+    </SafeAreaView>
   );
 };
 
@@ -59,5 +154,40 @@ export default LocationScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "black",
+  },
+  header: {
+    flex: 1,
+    backgroundColor: "black",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexGrow: 1,
+    paddingHorizontal: 15,
+  },
+  list: {
+    flex: 5,
+    backgroundColor: "black",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    alignSelf: "stretch",
+    flexGrow: 5,
+    width: "100%",
+  },
+  back_icon: {
+    backgroundColor: "black",
+    borderColor: "gray",
+    borderWidth: 0.4,
+    width: 50,
+    height: 40,
+    display: "flex",
+    justifyContent: "center",
+    alignContent: "center",
+    borderRadius: 5,
+    position: "absolute",
+    zIndex: 2,
+    left: 10,
+    // top: 20,
   },
 });
