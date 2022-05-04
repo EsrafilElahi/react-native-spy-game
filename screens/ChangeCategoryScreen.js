@@ -359,12 +359,13 @@ const ChangeCategoryScreen = ({ navigation, route }) => {
             />
           </Select>
         </Box>
-        <Box w="1/2" style={{ marginTop: 10 }}>
+        <Box w="1/2" style={{ marginTop: 7 }}>
           <Text
             style={{
               textAlign: language == "en-US" ? "left" : "right",
               fontFamily: language == "en-US" ? "farsan" : "vahid",
               fontSize: language == "en-US" ? 21 : 23,
+              paddingTop: language == "en-US" ? 0 : 12,
             }}
           >
             {i18n.t("category")}
@@ -413,7 +414,9 @@ const ChangeCategoryScreen = ({ navigation, route }) => {
                 styles.btn,
                 {
                   fontFamily: language == "en-US" ? "farsan" : "vahid",
-                  fontSize: language == "en-US" ? 20 : 21,
+                  fontSize: language == "en-US" ? 21 : 22,
+                  paddingVertical: language == "en-US" ? 3 : 2,
+                  paddingTop: language == "en-US" ? 6 : 9,
                 },
               ]}
             >
@@ -450,9 +453,6 @@ const styles = StyleSheet.create({
   btn: {
     textAlign: "center",
     color: "white",
-    fontSize: 20,
-    paddingVertical: 3,
-    paddingTop: 6,
   },
   back_icon: {
     backgroundColor: "black",

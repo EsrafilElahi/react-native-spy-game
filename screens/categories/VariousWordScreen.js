@@ -32,7 +32,6 @@ import * as Localization from "expo-localization";
 import i18n from "i18n-js";
 import { en, fa } from "../../i18n/locales";
 import RenderItem from "../../components/RenderItem";
-import { data } from "./../../components/DATA";
 
 import { uuid } from "./../../components/Uuid";
 

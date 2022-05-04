@@ -317,7 +317,12 @@ const HomeScreen = ({ navigation, route }) => {
             <Text
               style={[
                 styles.btn,
-                { fontFamily: language == "en-US" ? "farsan" : "vahid" },
+                {
+                  fontFamily: language == "en-US" ? "farsan" : "vahid",
+                  fontSize: language == "en-US" ? 21 : 23,
+                  paddingVertical: language == "en-US" ? 3 : 3,
+                  paddingTop: language == "en-US" ? 6 : 6,
+                },
               ]}
             >
               {i18n.t("newGame")}
@@ -341,7 +346,12 @@ const HomeScreen = ({ navigation, route }) => {
             <Text
               style={[
                 styles.btn,
-                { fontFamily: language == "en-US" ? "farsan" : "vahid" },
+                {
+                  fontFamily: language == "en-US" ? "farsan" : "vahid",
+                  fontSize: language == "en-US" ? 21 : 23,
+                  paddingVertical: language == "en-US" ? 4 : 0,
+                  paddingTop: language == "en-US" ? 6 : 10,
+                },
               ]}
             >
               {i18n.t("ChangeCategory")}
@@ -446,9 +456,9 @@ const styles = StyleSheet.create({
   btn: {
     textAlign: "center",
     color: "white",
-    fontSize: 22,
-    paddingVertical: 3,
-    // paddingTop: 7,
+    // fontSize: 23,
+    // paddingVertical: 0,
+    // paddingTop: 5,
   },
   developed: {
     display: "flex",

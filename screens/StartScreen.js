@@ -252,6 +252,46 @@ const StartScreen = ({ navigation, route }) => {
               label=" 25 "
               value={25}
             />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 26 "
+              value={26}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 27 "
+              value={27}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 28 "
+              value={28}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 29 "
+              value={29}
+            />
+            <Select.Item
+              _text={{
+                fontFamily: "farsan",
+                fontSize: 19,
+              }}
+              label=" 30 "
+              value={30}
+            />
           </Select>
         </Box>
         <Box w="1/2" style={{ marginTop: 10 }}>
@@ -260,6 +300,7 @@ const StartScreen = ({ navigation, route }) => {
               textAlign: language == "en-US" ? "left" : "right",
               fontFamily: language == "en-US" ? "farsan" : "vahid",
               fontSize: language == "en-US" ? 19 : 21,
+              paddingTop: language == "en-US" ? 0 : 8,
             }}
           >
             {i18n.t("players")}
@@ -372,6 +413,7 @@ const StartScreen = ({ navigation, route }) => {
               textAlign: language == "en-US" ? "left" : "right",
               fontFamily: language == "en-US" ? "farsan" : "vahid",
               fontSize: language == "en-US" ? 19 : 21,
+              paddingTop: language == "en-US" ? 0 : 8,
             }}
           >
             {i18n.t("spies")}
@@ -484,6 +526,7 @@ const StartScreen = ({ navigation, route }) => {
               textAlign: language == "en-US" ? "left" : "right",
               fontFamily: language == "en-US" ? "farsan" : "vahid",
               fontSize: language == "en-US" ? 19 : 21,
+              paddingTop: language == "en-US" ? 0 : 8,
             }}
           >
             {i18n.t("timer")}
@@ -564,6 +607,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 22,
     paddingVertical: 3,
-    // paddingTop: 3,
+    paddingTop: 7,
   },
 });
