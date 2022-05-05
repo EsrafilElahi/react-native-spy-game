@@ -49,12 +49,34 @@ const StartScreen = ({ navigation, route }) => {
   const [players, setPlayers] = useState(3);
   const [spies, setSpies] = useState(1);
   const [timer, setTimer] = useState(1);
+  const [finalData, setFinalData] = useState();
+  const [randomItem, setRandomItem] = useState();
 
-  // console.log("category in start screen -->", category);
-  // console.log("locationStart in start screen -->", locationStart);
-  // console.log("thingsStart in start screen -->", thingsStart);
-  // console.log("variousStart in start screen -->", variousStart);
-  // console.log("mixStart in start screen -->", mixStart);
+  const loadFinalData = async () => {
+    if (category === "location") await setFinalData(locationStart);
+    if (category === "things") await setFinalData(thingsStart);
+    if (category === "various") await setFinalData(variousStart);
+    if (category === "mix") await setFinalData(mixStart);
+
+    if (finalData) {
+      if (language === "en-US") {
+        await setRandomItem(
+          finalData[Math.floor(Math.random() * finalData?.length)].en
+        );
+      } else {
+        await setRandomItem(
+          finalData[Math.floor(Math.random() * finalData?.length)].fa
+        );
+      }
+    }
+    return true;
+  };
+
+  useEffect(() => {
+    loadFinalData();
+  }, [category, finalData]);
+
+  console.log("locationStart", locationStart);
 
   if (!isFontLoaded) {
     return null;
@@ -557,10 +579,7 @@ const StartScreen = ({ navigation, route }) => {
                 players,
                 spies,
                 timer,
-                locationStart,
-                thingsStart,
-                variousStart,
-                mixStart,
+                randomItem,
               })
             }
             variant="outline"

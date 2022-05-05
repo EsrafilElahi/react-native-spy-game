@@ -5,6 +5,7 @@ const en = {
   category: " Category ",
   players: " Number of  Players ",
   spies: " Number of  Spies ",
+  spy: " Spy ",
   timer: " Timer ",
   start: " Start ",
   number: " Number ",
@@ -19,6 +20,7 @@ const en = {
   cancel: " Cancel ",
   englishName: " English Name ",
   persianName: " Persian Name ",
+  wtf: " wtf bro!! the spies can't be greater than players ",
 };
 const fa = {
   title: " بازی جاسوس فارسی و انگلیسی ",
@@ -27,6 +29,7 @@ const fa = {
   category: " کتگوری ",
   players: " تعداد بازیکنان ",
   spies: " تعداد جاسوسان ",
+  spy: " جاسوس ",
   timer: " تایمر ",
   start: " شروع ",
   number: " شماره ",
@@ -41,6 +44,7 @@ const fa = {
   cancel: " لغو ",
   englishName: " نام انگلیسی ",
   persianName: " نام فارسی ",
+  wtf: " داداش چی زدی!! جاسوس ها نمیتونن از بازیکنان بیشتر باشن ",
 };
 
 export { en, fa };

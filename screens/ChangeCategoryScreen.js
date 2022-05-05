@@ -211,55 +211,6 @@ const ChangeCategoryScreen = ({ navigation, route }) => {
     ]
   );
 
-  // const paramsHome = {
-  //   category,
-  //   route.params?.locationData ?? locationData,
-  //   thingsData,
-  //   variousData,
-  //   mixData,
-  // };
-
-  useEffect(() => {
-    console.log(
-      "route?.params.locationData --> ",
-      route.params?.locationData ?? locationData
-    );
-    console.log(
-      "route?.params.thingsData --> ",
-      route.params?.thingsData ?? thingsData
-    );
-    console.log(
-      "route?.params.variousData --> ",
-      route.params?.variousData ?? variousData
-    );
-    console.log("route?.params.mixData --> ", route.params?.mixData ?? mixData);
-  }, [
-    route.params?.locationData,
-    route.params?.thingsData,
-    route.params?.variousData,
-    route.params?.mixData,
-  ]);
-
-  // const [categoryScreens, setCategoryScreens] = useState({});
-
-  // const loadCategoryscreens = async () => {
-  //   setCategoryScreens({
-  //     location: await require("./categories/LocationScreen"),
-  //     things: await require("./categories/ThingScreen"),
-  //     various: await require("./categories/VariousWordScreen"),
-  //     mix: await require("./categories/MixAllCategoryScreen"),
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   loadCategoryscreens();
-  // }, []);
-
-  // useEffect(() => {
-  //   console.log("category =>", category);
-  //   console.log("cat =>", cat);
-  // }, []);
-
   if (!isFontLoaded) {
     return null;
   }

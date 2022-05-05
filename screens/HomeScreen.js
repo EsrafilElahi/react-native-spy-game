@@ -191,35 +191,6 @@ const HomeScreen = ({ navigation, route }) => {
     },
   ]);
 
-  useEffect(() => {
-    console.log(
-      "route?.params.category --> ",
-      route.params?.category ?? "location"
-    );
-    console.log(
-      "route?.params.locationDataHome --> ",
-      route.params?.locationDataHome ?? locationData
-    );
-    console.log(
-      "route?.params.thingsDataHome --> ",
-      route.params?.thingsDataHome ?? thingsData
-    );
-    console.log(
-      "route?.params.variousDataHome --> ",
-      route.params?.variousDataHome ?? variousData
-    );
-    console.log(
-      "route?.params.mixDataHome --> ",
-      route.params?.mixDataHome ?? mixData
-    );
-  }, [
-    route.params?.category,
-    route.params?.locationDataHome,
-    route.params?.thingsDataHome,
-    route.params?.variousDataHome,
-    route.params?.mixDataHome,
-  ]);
-
   i18n.fallbacks = true;
   i18n.translations = { en, fa };
   i18n.locale = language;
@@ -310,10 +281,22 @@ const HomeScreen = ({ navigation, route }) => {
               navigation.navigate("Start", {
                 language,
                 category: route.params?.category ?? "location",
-                locationStart: route.params?.locationDataHome ?? locationData,
-                thingsStart: route.params?.thingsDataHome ?? thingsData,
-                variousStart: route.params?.variousDataHome ?? variousData,
-                mixStart: route.params?.mixDataHome ?? mixData,
+                locationStart:
+                  route.params?.locationDataHome.filter((item) => {
+                    return item.isEnabled;
+                  }) ?? locationData,
+                thingsStart:
+                  route.params?.thingsDataHome.filter((item) => {
+                    return item.isEnabled;
+                  }) ?? thingsData,
+                variousStart:
+                  route.params?.variousDataHome.filter((item) => {
+                    return item.isEnabled;
+                  }) ?? variousData,
+                mixStart:
+                  route.params?.mixDataHome.filter((item) => {
+                    return item.isEnabled;
+                  }) ?? mixData,
               })
             }
             variant="outline"
