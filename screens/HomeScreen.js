@@ -310,6 +310,10 @@ const HomeScreen = ({ navigation, route }) => {
               navigation.navigate("Start", {
                 language,
                 category: route.params?.category ?? "location",
+                locationStart: route.params?.locationDataHome ?? locationData,
+                thingsStart: route.params?.thingsDataHome ?? thingsData,
+                variousStart: route.params?.variousDataHome ?? variousData,
+                mixStart: route.params?.mixDataHome ?? mixData,
               })
             }
             variant="outline"

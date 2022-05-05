@@ -88,6 +88,19 @@ const MixAllCategoryScreen = ({ navigation, route }) => {
     ]
   );
 
+  // const addItem = (titleEn, titleFa) => {
+  //   setMixData((prevList) => {
+  //     return [
+  //       ...prevList,
+  //       {
+  //         en: titleEn,
+  //         fa: titleFa,
+  //         isEnabled: true,
+  //       },
+  //     ];
+  //   });
+  // };
+
   const changeSwitch = (id) => {
     let copyData = [...mixData];
     let updatedData = copyData.map((item) => {

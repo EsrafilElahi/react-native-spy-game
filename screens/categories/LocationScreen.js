@@ -88,6 +88,19 @@ const LocationScreen = ({ navigation, route }) => {
     ]
   );
 
+  // const addItem = (titleEn, titleFa) => {
+  //   setLocationData((prevList) => {
+  //     return [
+  //       ...prevList,
+  //       {
+  //         en: titleEn,
+  //         fa: titleFa,
+  //         isEnabled: true,
+  //       },
+  //     ];
+  //   });
+  // };
+
   const changeSwitch = (id) => {
     let copyData = [...locationData];
     let updatedData = copyData.map((item) => {

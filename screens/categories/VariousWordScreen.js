@@ -88,6 +88,19 @@ const VariousWordScreen = ({ navigation, route }) => {
     ]
   );
 
+  // const addItem = (titleEn, titleFa) => {
+  //   setVariousData((prevList) => {
+  //     return [
+  //       ...prevList,
+  //       {
+  //         en: titleEn,
+  //         fa: titleFa,
+  //         isEnabled: true,
+  //       },
+  //     ];
+  //   });
+  // };
+
   const changeSwitch = (id) => {
     let copyData = [...variousData];
     let updatedData = copyData.map((item) => {

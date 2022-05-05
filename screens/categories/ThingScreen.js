@@ -88,6 +88,19 @@ const ThingScreen = ({ navigation, route }) => {
     ]
   );
 
+  // const addItem = (titleEn, titleFa) => {
+  //   setThingsData((prevList) => {
+  //     return [
+  //       ...prevList,
+  //       {
+  //         en: titleEn,
+  //         fa: titleFa,
+  //         isEnabled: true,
+  //       },
+  //     ];
+  //   });
+  // };
+
   const changeSwitch = (id) => {
     let copyData = [...thingsData];
     let updatedData = copyData.map((item) => {

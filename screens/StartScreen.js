@@ -36,12 +36,25 @@ const customFonts = {
 };
 
 const StartScreen = ({ navigation, route }) => {
-  const { language, category } = route.params;
+  const {
+    language,
+    category,
+    locationStart,
+    thingsStart,
+    variousStart,
+    mixStart,
+  } = route.params;
   const [isFontLoaded] = useFonts(customFonts);
 
   const [players, setPlayers] = useState(3);
   const [spies, setSpies] = useState(1);
   const [timer, setTimer] = useState(1);
+
+  // console.log("category in start screen -->", category);
+  // console.log("locationStart in start screen -->", locationStart);
+  // console.log("thingsStart in start screen -->", thingsStart);
+  // console.log("variousStart in start screen -->", variousStart);
+  // console.log("mixStart in start screen -->", mixStart);
 
   if (!isFontLoaded) {
     return null;
@@ -540,11 +553,14 @@ const StartScreen = ({ navigation, route }) => {
             onPress={() =>
               navigation.navigate("Card", {
                 language,
-                data: {
-                  players,
-                  spies,
-                  timer,
-                },
+                category,
+                players,
+                spies,
+                timer,
+                locationStart,
+                thingsStart,
+                variousStart,
+                mixStart,
               })
             }
             variant="outline"
