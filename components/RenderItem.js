@@ -76,7 +76,8 @@ const RenderItem = ({ item, language, isEnabled, id, changeSwitch }) => {
           style={{
             fontFamily: language === "en-US" ? "farsan" : "vahid",
             fontSize: language === "en-US" ? 20 : 21,
-            paddingTop: language === "en-US" ? 0 : 8,
+            paddingTop: language === "en-US" ? 0 : 5,
+            paddingBottom: 16,
           }}
         >
           {item}

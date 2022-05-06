@@ -410,7 +410,7 @@ const styles = StyleSheet.create({
     borderColor: "gray",
     borderWidth: 0.4,
     width: 50,
-    height: 40,
+    height: 50,
     display: "flex",
     justifyContent: "center",
     alignContent: "center",

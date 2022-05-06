@@ -20,6 +20,9 @@ import {
   Pressable,
   Heading,
   Select,
+  Modal,
+  Input,
+  FormControl,
 } from "native-base";
 import {
   EvilIcons,
@@ -46,6 +49,9 @@ const customFonts = {
 const ThingScreen = ({ navigation, route }) => {
   const { language, thing } = route.params;
   const [isFontLoaded] = useFonts(customFonts);
+  const [persian, setPersian] = useState("");
+  const [english, setEnglish] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   const [thingsData, setThingsData] = useState(
     thing ?? [
@@ -88,18 +94,14 @@ const ThingScreen = ({ navigation, route }) => {
     ]
   );
 
-  // const addItem = (titleEn, titleFa) => {
-  //   setThingsData((prevList) => {
-  //     return [
-  //       ...prevList,
-  //       {
-  //         en: titleEn,
-  //         fa: titleFa,
-  //         isEnabled: true,
-  //       },
-  //     ];
-  //   });
-  // };
+  const handleAddItem = () => {
+    setShowModal(false);
+    setPersian("");
+    setEnglish("");
+    let copy = [...thingsData];
+    copy.push({ fa: persian, en: english, isEnabled: true });
+    setThingsData(copy);
+  };
 
   const changeSwitch = (id) => {
     let copyData = [...thingsData];
@@ -140,7 +142,139 @@ const ThingScreen = ({ navigation, route }) => {
             color="white"
           />
         </Pressable>
-        <Center>header</Center>
+        <Center
+          style={{
+            width: "100%",
+            flex: 4,
+            textAlign: "right",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "flex-end",
+            alignItems: "center",
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              width: "70%",
+              height: 50,
+              textAlign: "right",
+            }}
+          >
+            <Button onPress={() => setShowModal(true)} variant="outline">
+              <Text
+                style={[
+                  styles.btn,
+                  {
+                    fontFamily: language == "en-US" ? "farsan" : "vahid",
+                    fontSize: language == "en-US" ? 21 : 21,
+                    paddingVertical: language == "en-US" ? 3 : 0,
+                    paddingTop: language == "en-US" ? 6 : 7,
+                  },
+                ]}
+              >
+                {i18n.t("addCategoryCase")}
+              </Text>
+            </Button>
+          </TouchableOpacity>
+          <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+            <Modal.Content maxWidth="400px">
+              <Modal.Body>
+                <FormControl>
+                  <FormControl.Label>
+                    <Text
+                      style={{
+                        color: "white",
+                        fontFamily: language == "en-US" ? "farsan" : "vahid",
+                        fontSize: language == "en-US" ? 19 : 22,
+                        textAlign: language == "en-US" ? "left" : "right",
+                        width: "100%",
+                      }}
+                    >
+                      {i18n.t("persianName")}
+                    </Text>
+                  </FormControl.Label>
+                  <Input
+                    style={{
+                      fontFamily: language == "en-US" ? "farsan" : "vahid",
+                      fontSize: language == "en-US" ? 19 : 20,
+                    }}
+                    value={persian}
+                    onChangeText={(newTxt) => setPersian(newTxt)}
+                  />
+                </FormControl>
+                <FormControl mt="2">
+                  <FormControl.Label>
+                    <Text
+                      style={{
+                        color: "white",
+                        fontFamily: language == "en-US" ? "farsan" : "vahid",
+                        fontSize: language == "en-US" ? 19 : 22,
+                        paddingTop: 10,
+                        width: "100%",
+                        textAlign: language == "en-US" ? "left" : "right",
+                      }}
+                    >
+                      {i18n.t("englishName")}
+                    </Text>
+                  </FormControl.Label>
+                  <Input
+                    style={{
+                      fontFamily: language == "en-US" ? "farsan" : "vahid",
+                      fontSize: language == "en-US" ? 19 : 20,
+                    }}
+                    value={english}
+                    onChangeText={(newTxt) => setEnglish(newTxt)}
+                  />
+                </FormControl>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button.Group
+                  style={{
+                    display: "flex",
+                    flexDirection: language === "en-US" ? "row-reverse" : "row",
+                    width: "100%",
+                    justifyContent:
+                      language === "en-US" ? "flex-end" : "flex-end",
+                  }}
+                  space={4}
+                >
+                  <Button
+                    variant="ghost"
+                    colorScheme="blueGray"
+                    onPress={() => {
+                      setShowModal(false);
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: "white",
+                        fontFamily: language == "en-US" ? "farsan" : "vahid",
+                        fontSize: language == "en-US" ? 19 : 23,
+                        paddingVertical: language == "en-US" ? 3 : 0,
+                        paddingTop: language == "en-US" ? 6 : 6,
+                      }}
+                    >
+                      {i18n.t("cancel")}
+                    </Text>
+                  </Button>
+                  <Button colorScheme="teal" onPress={handleAddItem}>
+                    <Text
+                      style={{
+                        color: "white",
+                        fontFamily: language == "en-US" ? "farsan" : "vahid",
+                        fontSize: language == "en-US" ? 19 : 22,
+                        paddingVertical: language == "en-US" ? 3 : 0,
+                        paddingTop: language == "en-US" ? 6 : 5,
+                      }}
+                    >
+                      {i18n.t("save")}
+                    </Text>
+                  </Button>
+                </Button.Group>
+              </Modal.Footer>
+            </Modal.Content>
+          </Modal>
+        </Center>
       </Box>
       <Box style={styles.list}>
         <FlatList
@@ -192,7 +326,7 @@ const styles = StyleSheet.create({
     borderColor: "gray",
     borderWidth: 0.4,
     width: 50,
-    height: 40,
+    height: 50,
     display: "flex",
     justifyContent: "center",
     alignContent: "center",
@@ -200,6 +334,9 @@ const styles = StyleSheet.create({
     position: "absolute",
     zIndex: 2,
     left: 10,
-    // top: 20,
+  },
+  btn: {
+    textAlign: "center",
+    color: "white",
   },
 });
