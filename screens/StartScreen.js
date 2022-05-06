@@ -76,8 +76,6 @@ const StartScreen = ({ navigation, route }) => {
     loadFinalData();
   }, [category, finalData]);
 
-  console.log("locationStart", locationStart);
-
   if (!isFontLoaded) {
     return null;
   }

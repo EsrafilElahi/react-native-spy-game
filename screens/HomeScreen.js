@@ -25,7 +25,6 @@ import { useFonts } from "expo-font";
 import * as Localization from "expo-localization";
 import i18n from "i18n-js";
 import { en, fa } from "../i18n/locales";
-import Btn from "../components/Btn";
 import { uuid } from "../components/Uuid";
 
 const customFonts = {

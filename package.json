@@ -22,11 +22,11 @@
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
     "react-native-cards-swipe": "^1.2.1",
+    "react-native-countdown-component": "^2.7.1",
     "react-native-gesture-handler": "^2.4.1",
     "react-native-reanimated": "^2.8.0",
     "react-native-web": "0.17.1",
-    "react-spring": "^8.0.27",
-    "react-tinder-card": "^1.4.5"
+    "react-spring": "^8.0.27"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

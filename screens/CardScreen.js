@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, createRef } from "react";
 import {
   View,
   StyleSheet,
@@ -32,6 +32,7 @@ import * as Localization from "expo-localization";
 import i18n from "i18n-js";
 import { en, fa } from "../i18n/locales";
 import { uuid } from "../components/Uuid";
+import RenderCard from "./../components/RenderCard";
 
 i18n.fallbacks = true;
 i18n.translations = { en, fa };
@@ -53,6 +54,20 @@ const Cards = ({ navigation, route }) => {
   );
   const mergeArr = [...playersArr, ...spiesArr];
   const randomRender = mergeArr.sort((a, b) => Math.random() - 0.5);
+
+  const arrLength = randomRender.length;
+  const [questionRef, setQuestionRef] = useState([]);
+
+  useEffect(() => {
+    // add or remove refs
+    setQuestionRef((questionRef) =>
+      Array(arrLength)
+        .fill()
+        .map((_, i) => questionRef[i] || createRef())
+    );
+  }, [arrLength]);
+
+  // console.log("elRefs --> ", elRefs[0].current);
 
   if (!isFontLoaded) {
     return null;
@@ -78,31 +93,29 @@ const Cards = ({ navigation, route }) => {
           </Text>
         </Center>
       ) : (
-        <Box>
-          <Center>Card Screen</Center>
-
-          {/* <FlatList
+        <Box
+          style={{
+            flex: 1,
+            flexGrow: 1,
+          }}
+        >
+          <FlatList
             horizontal
             pagingEnabled
             showsHorizontalScrollIndicator={false}
             data={randomRender.reverse()}
             keyExtractor={(item, index) => index}
-          /> */}
-
-          {randomRender.reverse().map((item, i) => {
-            return (
-              <Center
-                style={{
-                  backgroundColor: "red",
-                  marginVertical: 5,
-                  paddingVertical: 5,
-                }}
-                key={i}
-              >
-                {item}
-              </Center>
-            );
-          })}
+            renderItem={({ item, index, arr }) => (
+              <RenderCard
+                item={item}
+                language={language}
+                questionRef={questionRef[index]}
+                index={index}
+                lastIndex={randomRender.length - 1}
+                timer={timer}
+              />
+            )}
+          />
         </Box>
       )}
     </SafeAreaView>
@@ -115,7 +128,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "black",
-    paddingHorizontal: 10,
-    paddingVertical: 10,
   },
 });
