@@ -43,12 +43,33 @@ const customFonts = {
 };
 
 const RenderCard = (props) => {
-  const { item, language, index, questionRef, lastIndex, timer } = props;
+  const {
+    item,
+    language,
+    index,
+    questionRef,
+    lastIndex,
+    timer,
+    spyList,
+    setSpyList,
+  } = props;
   const [isFontLoaded] = useFonts(customFonts);
   const [title, setTitle] = useState(
     language === "en-US" ? " Click It " : "  کلیک کن  "
   );
+
   const navigation = useNavigation();
+
+  const checkSpy = () => {
+    if (item == " جاسوس " || item == " Spy ") {
+      // console.log("render card new :", { item, index });
+      setSpyList((prev) => [...prev, { item, index }]);
+    }
+  };
+
+  useEffect(() => {
+    checkSpy();
+  }, [index]);
 
   if (!isFontLoaded) {
     return null;
@@ -67,7 +88,7 @@ const RenderCard = (props) => {
               paddingBottom: 15,
             }}
           >
-            {i18n.t("number")} {index + 1}
+            {` ${i18n.t("number")} ${index + 1} `}
           </Text>
         </Center>
       </Box>
@@ -130,9 +151,10 @@ const RenderCard = (props) => {
           </Button>
           <Button
             onPress={() => {
-              navigation.navigate("Timer", {
+              navigation.replace("Timer", {
                 language,
                 timer,
+                spyList,
               });
             }}
             style={{

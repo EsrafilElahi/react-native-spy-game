@@ -44,7 +44,7 @@ const customFonts = {
 };
 
 const Timer = ({ navigation, route }) => {
-  const { language, timer } = route.params;
+  const { language, timer, spyList } = route.params;
   const [isFontLoaded] = useFonts(customFonts);
 
   if (!isFontLoaded) {
@@ -54,7 +54,6 @@ const Timer = ({ navigation, route }) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
-      {/* <Button onPress={() => navigation.navigate("Home")}>back</Button> */}
       <Center
         style={{
           paddingTop: 30,
@@ -66,7 +65,7 @@ const Timer = ({ navigation, route }) => {
         <CountDown
           until={timer * 60}
           size={50}
-          onFinish={() => navigation.navigate("Finish", { language })}
+          onFinish={() => navigation.navigate("Finish", { language, spyList })}
           digitStyle={{
             backgroundColor: "black",
             fontFamily: "farsan",
@@ -95,7 +94,7 @@ const Timer = ({ navigation, route }) => {
         <TouchableOpacity style={{ width: "100%" }}>
           <Button
             onPress={() =>
-              navigation.navigate("Finish", {
+              navigation.replace("Finish", {
                 language,
               })
             }

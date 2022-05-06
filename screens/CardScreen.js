@@ -57,6 +57,9 @@ const Cards = ({ navigation, route }) => {
 
   const arrLength = randomRender.length;
   const [questionRef, setQuestionRef] = useState([]);
+  const [spyList, setSpyList] = useState([]);
+
+  // console.log("spyList :", spyList);
 
   useEffect(() => {
     // add or remove refs
@@ -66,8 +69,6 @@ const Cards = ({ navigation, route }) => {
         .map((_, i) => questionRef[i] || createRef())
     );
   }, [arrLength]);
-
-  // console.log("elRefs --> ", elRefs[0].current);
 
   if (!isFontLoaded) {
     return null;
@@ -113,6 +114,8 @@ const Cards = ({ navigation, route }) => {
                 index={index}
                 lastIndex={randomRender.length - 1}
                 timer={timer}
+                spyList={spyList}
+                setSpyList={setSpyList}
               />
             )}
           />
