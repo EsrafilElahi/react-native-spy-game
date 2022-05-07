@@ -49,8 +49,8 @@ const customFonts = {
 const VariousWordScreen = ({ navigation, route }) => {
   const { language, various } = route.params;
   const [isFontLoaded] = useFonts(customFonts);
-  const [persian, setPersian] = useState("");
-  const [english, setEnglish] = useState("");
+  const [persian, setPersian] = useState("  ");
+  const [english, setEnglish] = useState("  ");
   const [showModal, setShowModal] = useState(false);
 
   const [variousData, setVariousData] = useState(

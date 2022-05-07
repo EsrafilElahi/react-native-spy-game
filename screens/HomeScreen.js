@@ -9,6 +9,7 @@ import {
   BackHandler,
   ToastAndroid,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import {
   Text,
@@ -20,12 +21,14 @@ import {
   Button,
   Pressable,
   Heading,
+  useToast,
 } from "native-base";
 import { useFonts } from "expo-font";
 import * as Localization from "expo-localization";
 import i18n from "i18n-js";
 import { en, fa } from "../i18n/locales";
 import { uuid } from "../components/Uuid";
+import Toast from "react-native-toast-message";
 
 const customFonts = {
   farsan: require("../assets/fonts/farsan.ttf"),
@@ -35,7 +38,8 @@ const customFonts = {
 const HomeScreen = ({ navigation, route }) => {
   const [isFontLoaded] = useFonts(customFonts);
   const [language, setLanguage] = useState("fa-IR");
-  const [exitApp, setExitApp] = useState(0);
+  // const [exitApp, setExitApp] = useState(0);
+  // const toast = useToast();
 
   const [locationData, setLocationData] = useState([
     {
@@ -190,35 +194,28 @@ const HomeScreen = ({ navigation, route }) => {
     },
   ]);
 
+  console.log("route.params?.locationDataHome", route.params?.locationDataHome);
+
   i18n.fallbacks = true;
   i18n.translations = { en, fa };
   i18n.locale = language;
 
-  // const backAction = () => {
-  //   setTimeout(() => {
-  //     setExitApp(0);
-  //   }, 2000); // 2 seconds to tap second-time
+  useEffect(() => {
+    const backAction = () => {
+      Toast.show({
+        type: "info",
+        text1: "This is an info message",
+      });
+      return true;
+    };
 
-  //   if (exitApp === 0) {
-  //     setExitApp((prev) => prev + 1);
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
 
-  //     ToastAndroid.show(
-  //       "please press back button again to exit app",
-  //       ToastAndroid.SHORT
-  //     );
-  //   } else if (exitApp === 1) {
-  //     BackHandler.exitApp();
-  //   }
-  //   return true;
-  // };
-
-  // useEffect(() => {
-  //   const backHandler = BackHandler.addEventListener(
-  //     "hardwareBackPress",
-  //     backAction
-  //   );
-  //   return () => backHandler.remove();
-  // },[]);
+    return () => backHandler.remove();
+  }, []);
 
   if (!isFontLoaded) {
     return null;
@@ -442,9 +439,6 @@ const styles = StyleSheet.create({
   btn: {
     textAlign: "center",
     color: "white",
-    // fontSize: 23,
-    // paddingVertical: 0,
-    // paddingTop: 5,
   },
   developed: {
     display: "flex",

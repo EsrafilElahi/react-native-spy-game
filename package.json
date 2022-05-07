@@ -25,6 +25,7 @@
     "react-native-countdown-component": "^2.7.1",
     "react-native-gesture-handler": "^2.4.1",
     "react-native-reanimated": "^2.8.0",
+    "react-native-toast-message": "^2.1.5",
     "react-native-web": "0.17.1",
     "react-spring": "^8.0.27"
   },

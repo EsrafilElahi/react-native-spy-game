@@ -211,6 +211,8 @@ const ChangeCategoryScreen = ({ navigation, route }) => {
     ]
   );
 
+  console.log("route.params?.lh", route.params?.lh);
+
   if (!isFontLoaded) {
     return null;
   }
@@ -226,10 +228,10 @@ const ChangeCategoryScreen = ({ navigation, route }) => {
             name: "Home",
             params: {
               category,
-              locationDataHome: route.params?.locationData ?? locationData,
-              thingsDataHome: route.params?.thingsData ?? thingsData,
-              variousDataHome: route.params?.variousData ?? variousData,
-              mixDataHome: route.params?.mixData ?? mixData,
+              locationDataHome: route.params?.lh ?? locationData,
+              thingsDataHome: route.params?.th ?? thingsData,
+              variousDataHome: route.params?.vh ?? variousData,
+              mixDataHome: route.params?.mh ?? mixData,
             },
             merge: true,
           })
@@ -351,10 +353,10 @@ const ChangeCategoryScreen = ({ navigation, route }) => {
                   //     : category === "various"
                   //     ? route.params?.variousData ?? variousData
                   //     : route.params?.mixData ?? mixData,
-                  loc: route.params?.locationData ?? locationData,
-                  thing: route.params?.thingsData ?? thingsData,
-                  various: route.params?.variousData ?? variousData,
-                  mix: route.params?.mixData ?? mixData,
+                  loc: route.params?.lh ?? locationData,
+                  thing: route.params?.th ?? thingsData,
+                  various: route.params?.vh ?? variousData,
+                  mix: route.params?.mh ?? mixData,
                 }
               )
             }

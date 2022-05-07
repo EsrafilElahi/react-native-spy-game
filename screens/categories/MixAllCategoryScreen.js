@@ -49,8 +49,8 @@ const customFonts = {
 const MixAllCategoryScreen = ({ navigation, route }) => {
   const { language, mix } = route.params;
   const [isFontLoaded] = useFonts(customFonts);
-  const [persian, setPersian] = useState("");
-  const [english, setEnglish] = useState("");
+  const [persian, setPersian] = useState("  ");
+  const [english, setEnglish] = useState("  ");
   const [showModal, setShowModal] = useState(false);
 
   const [mixData, setMixData] = useState(

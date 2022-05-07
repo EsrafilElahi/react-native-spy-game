@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, View, I18nManager, Button } from "react-native";
 import { useFonts } from "expo-font";
 import { NativeBaseProvider, Text, Box } from "native-base";
