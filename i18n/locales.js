@@ -25,6 +25,7 @@ const en = {
   englishName: " English Name ",
   persianName: " Persian Name ",
   wtf: " wtf bro!! the spies can't be greater than players ",
+  exit: " please press back button again to exit app ",
 };
 const fa = {
   title: " بازی جاسوس فارسی و انگلیسی ",
@@ -53,6 +54,7 @@ const fa = {
   englishName: " نام انگلیسی ",
   persianName: " نام فارسی ",
   wtf: " داداش چی زدی!! جاسوس ها نمیتونن از بازیکنان بیشتر باشن ",
+  exit: " لطفا دوباره دکمه برگشت را بزنید تا از برنامه خارج شوید ",
 };
 
 export { en, fa };
