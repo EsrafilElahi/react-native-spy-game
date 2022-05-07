@@ -65,7 +65,7 @@ const Timer = ({ navigation, route }) => {
         <CountDown
           until={timer * 60}
           size={50}
-          onFinish={() => navigation.navigate("Finish", { language, spyList })}
+          onFinish={() => navigation.replace("Home")}
           digitStyle={{
             backgroundColor: "black",
             fontFamily: "farsan",
@@ -92,14 +92,7 @@ const Timer = ({ navigation, route }) => {
         }}
       >
         <TouchableOpacity style={{ width: "100%" }}>
-          <Button
-            onPress={() =>
-              navigation.replace("Finish", {
-                language,
-              })
-            }
-            variant="outline"
-          >
+          <Button onPress={() => navigation.replace("Home")} variant="outline">
             <Text
               style={[
                 styles.btn,
