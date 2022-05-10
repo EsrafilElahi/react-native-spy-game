@@ -1,41 +1,21 @@
 import React, { useEffect, useState, useRef } from "react";
 import {
-  View,
   StyleSheet,
   StatusBar,
   SafeAreaView,
-  Dimensions,
   TouchableOpacity,
-  BackHandler,
 } from "react-native";
-import {
-  Text,
-  Box,
-  Center,
-  Container,
-  Image,
-  VStack,
-  Button,
-  Pressable,
-  Heading,
-  Select,
-} from "native-base";
-import {
-  EvilIcons,
-  AntDesign,
-  FontAwesome5,
-  FontAwesome,
-} from "@expo/vector-icons";
+import { Text, Box, Button, Pressable, Select } from "native-base";
+import { AntDesign } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
-import * as Localization from "expo-localization";
 import i18n from "i18n-js";
 import { en, fa } from "../i18n/locales";
-import { uuid } from "../components/Uuid";
 
 import LocationScreen from "./categories/LocationScreen";
 import ThingScreen from "./categories/ThingScreen";
 import VariousWordScreen from "./categories/VariousWordScreen";
 import MixAllCategoryScreen from "./categories/MixAllCategoryScreen";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 i18n.fallbacks = true;
 i18n.translations = { en, fa };
@@ -46,172 +26,8 @@ const customFonts = {
 };
 
 const ChangeCategoryScreen = ({ navigation, route }) => {
-  const { language, cat, lh, th, vh, mh } = route.params;
+  const { language, cat } = route.params;
   const [isFontLoaded] = useFonts(customFonts);
-  const [category, setCategory] = useState(cat ?? "location");
-
-  const [locationData, setLocationData] = useState(
-    lh ?? [
-      {
-        en: " bank ",
-        fa: " بانک ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " restaurant ",
-        fa: " رستوران ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " masque ",
-        fa: " مسجد ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " airport ",
-        fa: " فرودگاه ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " hotel ",
-        fa: " هتل ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " school ",
-        fa: " مدرسه ",
-        isEnabled: true,
-        id: uuid(),
-      },
-    ]
-  );
-  const [thingsData, setThingsData] = useState(
-    th ?? [
-      {
-        en: " pencil ",
-        fa: " مداد ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " mobile ",
-        fa: " موبایل ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " shoes ",
-        fa: " کفش ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " car ",
-        fa: " ماشین ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " tv ",
-        fa: " تلویزیون ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " toy ",
-        fa: " اسباب بازی ",
-        isEnabled: true,
-        id: uuid(),
-      },
-    ]
-  );
-  const [variousData, setVariousData] = useState(
-    vh ?? [
-      {
-        en: " marriage ",
-        fa: " ازدواج ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " dream ",
-        fa: " رویا ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " party ",
-        fa: " جشن ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " happy ",
-        fa: " خوشحال ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " water ",
-        fa: " آب ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " jungle ",
-        fa: " جنگل ",
-        isEnabled: true,
-        id: uuid(),
-      },
-    ]
-  );
-  const [mixData, setMixData] = useState(
-    mh ?? [
-      {
-        en: " bank ",
-        fa: " بانک ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " party ",
-        fa: " جشن ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " shoes ",
-        fa: " کفش ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " car ",
-        fa: " ماشین ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " marriage ",
-        fa: " ازدواج ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " boy ",
-        fa: " پسر ",
-        isEnabled: true,
-        id: uuid(),
-      },
-    ]
-  );
-
-  console.log("route.params?.lh", route.params?.lh);
 
   if (!isFontLoaded) {
     return null;
@@ -223,19 +39,7 @@ const ChangeCategoryScreen = ({ navigation, route }) => {
 
       <Pressable
         style={styles.back_icon}
-        onPress={() =>
-          navigation.navigate({
-            name: "Home",
-            params: {
-              category,
-              locationDataHome: route.params?.lh ?? locationData,
-              thingsDataHome: route.params?.th ?? thingsData,
-              variousDataHome: route.params?.vh ?? variousData,
-              mixDataHome: route.params?.mh ?? mixData,
-            },
-            merge: true,
-          })
-        }
+        onPress={() => navigation.navigate("Home", { category })}
       >
         <AntDesign
           style={{
@@ -259,7 +63,7 @@ const ChangeCategoryScreen = ({ navigation, route }) => {
               fontFamily: language === "en-US" ? "farsan" : "vahid",
               fontSize: language === "en-US" ? 18 : 19,
             }}
-            selectedValue={cat === category ? cat : category}
+            selectedValue={category}
             mt={1}
             onValueChange={(itemValue) => setCategory(itemValue)}
             _selectedItem={{
@@ -336,27 +140,15 @@ const ChangeCategoryScreen = ({ navigation, route }) => {
           <Button
             onPress={() =>
               navigation.navigate(
-                category === "location"
-                  ? "location"
-                  : category === "things"
-                  ? "things"
-                  : category === "various"
-                  ? "various"
-                  : "mix",
+                // category === "location"
+                //   ? "location"
+                //   : category === "things"
+                //   ? "things"
+                //   : category === "various"
+                //   ? "various"
+                //   : "mix",
                 {
                   language,
-                  // allData:
-                  //   category === "location"
-                  //     ? route.params?.locationData ?? locationData
-                  //     : category === "things"
-                  //     ? route.params?.thingsData ?? thingsData
-                  //     : category === "various"
-                  //     ? route.params?.variousData ?? variousData
-                  //     : route.params?.mixData ?? mixData,
-                  loc: route.params?.lh ?? locationData,
-                  thing: route.params?.th ?? thingsData,
-                  various: route.params?.vh ?? variousData,
-                  mix: route.params?.mh ?? mixData,
                 }
               )
             }

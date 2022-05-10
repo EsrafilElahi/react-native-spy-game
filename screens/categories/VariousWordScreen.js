@@ -1,42 +1,27 @@
 import React, { useEffect, useState, useRef } from "react";
 import {
-  View,
   StyleSheet,
   StatusBar,
   SafeAreaView,
-  Dimensions,
   TouchableOpacity,
-  ScrollView,
   FlatList,
 } from "react-native";
 import {
   Text,
   Box,
   Center,
-  Container,
-  Image,
-  VStack,
   Button,
   Pressable,
-  Heading,
-  Select,
   Modal,
   Input,
   FormControl,
 } from "native-base";
-import {
-  EvilIcons,
-  AntDesign,
-  FontAwesome5,
-  FontAwesome,
-} from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
-import * as Localization from "expo-localization";
 import i18n from "i18n-js";
 import { en, fa } from "../../i18n/locales";
 import RenderItem from "../../components/RenderItem";
-
-import { uuid } from "./../../components/Uuid";
+import { uuid } from "../../lib/utils";
 
 i18n.fallbacks = true;
 i18n.translations = { en, fa };

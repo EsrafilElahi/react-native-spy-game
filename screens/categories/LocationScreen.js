@@ -1,42 +1,26 @@
 import React, { useEffect, useState, useRef } from "react";
 import {
-  View,
   StyleSheet,
   StatusBar,
   SafeAreaView,
-  Dimensions,
   TouchableOpacity,
-  ScrollView,
   FlatList,
 } from "react-native";
 import {
   Text,
   Box,
   Center,
-  Container,
-  Image,
-  VStack,
   Button,
   Pressable,
-  Heading,
-  Select,
   Modal,
   Input,
   FormControl,
 } from "native-base";
-import {
-  EvilIcons,
-  AntDesign,
-  FontAwesome5,
-  FontAwesome,
-} from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
-import * as Localization from "expo-localization";
 import i18n from "i18n-js";
 import { en, fa } from "../../i18n/locales";
 import RenderItem from "../../components/RenderItem";
-
-import { uuid } from "./../../components/Uuid";
 
 i18n.fallbacks = true;
 i18n.translations = { en, fa };
@@ -47,72 +31,12 @@ const customFonts = {
 };
 
 const LocationScreen = ({ navigation, route }) => {
-  const { language, loc } = route.params;
+  const { language } = route.params;
   const [isFontLoaded] = useFonts(customFonts);
-  const [persian, setPersian] = useState("");
-  const [english, setEnglish] = useState("");
+
+  const [persian, setPersian] = useState("  ");
+  const [english, setEnglish] = useState("  ");
   const [showModal, setShowModal] = useState(false);
-
-  const [locationData, setLocationData] = useState(
-    loc ?? [
-      {
-        en: " bank ",
-        fa: " بانک ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " restaurant ",
-        fa: " رستوران ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " masque ",
-        fa: " مسجد ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " airport ",
-        fa: " فرودگاه ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " hotel ",
-        fa: " هتل ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " school ",
-        fa: " مدرسه ",
-        isEnabled: true,
-        id: uuid(),
-      },
-    ]
-  );
-
-  const handleAddItem = () => {
-    setShowModal(false);
-    setPersian("");
-    setEnglish("");
-    let copy = [...locationData];
-    copy.push({ fa: persian, en: english, isEnabled: true });
-    setLocationData(copy);
-  };
-
-  const changeSwitch = (id) => {
-    let copyData = [...locationData];
-    let updatedData = copyData.map((item) => {
-      if (item.id === id) {
-        return { ...item, isEnabled: !item.isEnabled };
-      }
-      return item;
-    });
-    setLocationData(updatedData);
-  };
 
   if (!isFontLoaded) {
     return null;
@@ -125,13 +49,7 @@ const LocationScreen = ({ navigation, route }) => {
       <Box style={styles.header}>
         <Pressable
           style={styles.back_icon}
-          onPress={() =>
-            navigation.navigate({
-              name: "ChangeCategory",
-              params: { locationData },
-              merge: true,
-            })
-          }
+          onPress={() => navigation.navigate("ChangeCategory")}
         >
           <AntDesign
             style={{
@@ -257,7 +175,8 @@ const LocationScreen = ({ navigation, route }) => {
                       {i18n.t("cancel")}
                     </Text>
                   </Button>
-                  <Button colorScheme="teal" onPress={handleAddItem}>
+                  {/* <Button colorScheme="teal" onPress={handleAddItem}> */}
+                  <Button colorScheme="teal">
                     <Text
                       style={{
                         color: "white",
@@ -278,15 +197,15 @@ const LocationScreen = ({ navigation, route }) => {
       </Box>
       <Box style={styles.list}>
         <FlatList
-          data={locationData}
-          keyExtractor={(item, index) => index}
+          // data={data[0].location}
+          keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <RenderItem
               language={language}
               item={language === "en-US" ? item.en : item.fa}
               isEnabled={item.isEnabled}
               id={item.id}
-              changeSwitch={changeSwitch}
+              // changeSwitch={changeSwitch}
             />
           )}
         />

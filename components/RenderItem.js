@@ -1,35 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
-import {
-  View,
-  StyleSheet,
-  StatusBar,
-  SafeAreaView,
-  Dimensions,
-  TouchableOpacity,
-  ScrollView,
-  FlatList,
-} from "react-native";
-import {
-  Text,
-  Box,
-  Center,
-  Container,
-  Image,
-  VStack,
-  Button,
-  Pressable,
-  Heading,
-  Select,
-  Switch,
-} from "native-base";
-import {
-  EvilIcons,
-  AntDesign,
-  FontAwesome5,
-  FontAwesome,
-} from "@expo/vector-icons";
+import { StyleSheet, Dimensions } from "react-native";
+import { Text, Box, Switch } from "native-base";
 import { useFonts } from "expo-font";
-import * as Localization from "expo-localization";
 import i18n from "i18n-js";
 import { en, fa } from "../i18n/locales";
 

@@ -1,38 +1,14 @@
 import React, { useEffect, useState, useRef, createRef } from "react";
 import {
-  View,
   StyleSheet,
   StatusBar,
   SafeAreaView,
-  Dimensions,
   TouchableOpacity,
-  BackHandler,
 } from "react-native";
-import {
-  Text,
-  Box,
-  Center,
-  Container,
-  Image,
-  VStack,
-  Button,
-  Pressable,
-  Heading,
-  Select,
-  FlatList,
-} from "native-base";
-import {
-  EvilIcons,
-  AntDesign,
-  FontAwesome5,
-  FontAwesome,
-} from "@expo/vector-icons";
+import { Text, Center, Button } from "native-base";
 import { useFonts } from "expo-font";
-import * as Localization from "expo-localization";
 import i18n from "i18n-js";
 import { en, fa } from "../i18n/locales";
-import { uuid } from "../components/Uuid";
-import RenderCard from "./../components/RenderCard";
 import CountDown from "react-native-countdown-component";
 
 i18n.fallbacks = true;

@@ -1,29 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
 import {
-  View,
   StyleSheet,
   StatusBar,
   SafeAreaView,
-  Dimensions,
-  Platform,
-  // BackHandler,
-  // ToastAndroid,
   TouchableOpacity,
 } from "react-native";
-import {
-  Text,
-  Box,
-  Center,
-  Container,
-  Image,
-  VStack,
-  Button,
-  Pressable,
-  Heading,
-  Select,
-} from "native-base";
+import { Text, Box, Button, Select } from "native-base";
 import { useFonts } from "expo-font";
-import * as Localization from "expo-localization";
 import i18n from "i18n-js";
 import { en, fa } from "../i18n/locales";
 

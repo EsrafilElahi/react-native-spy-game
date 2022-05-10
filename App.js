@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, I18nManager, Button } from "react-native";
+import { I18nManager } from "react-native";
 import { useFonts } from "expo-font";
-import { NativeBaseProvider, Text, Box } from "native-base";
+import { NativeBaseProvider } from "native-base";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { theme } from "./assets/Theme";
@@ -19,7 +19,7 @@ import VariousWordScreen from "./screens/categories/VariousWordScreen";
 import MixAllCategoryScreen from "./screens/categories/MixAllCategoryScreen";
 
 const Stack = createNativeStackNavigator();
-I18nManager.allowRTL(true);
+I18nManager.allowRTL(false);
 I18nManager.forceRTL(false);
 
 const customFonts = {
@@ -29,7 +29,6 @@ const customFonts = {
 
 export default function App() {
   const [isFontLoaded] = useFonts(customFonts);
-  const [fuck, setFuck] = useState("fuck");
 
   if (!isFontLoaded) {
     return null;

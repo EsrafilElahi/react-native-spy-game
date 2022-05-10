@@ -1,34 +1,15 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import {
-  View,
   StyleSheet,
   StatusBar,
   SafeAreaView,
-  Dimensions,
-  Platform,
-  BackHandler,
-  ToastAndroid,
   TouchableOpacity,
-  Alert,
 } from "react-native";
-import {
-  Text,
-  Box,
-  Center,
-  Container,
-  Image,
-  VStack,
-  Button,
-  Pressable,
-  Heading,
-  useToast,
-} from "native-base";
+import { Text, Box, Image, Button } from "native-base";
 import { useFonts } from "expo-font";
-import * as Localization from "expo-localization";
 import i18n from "i18n-js";
 import { en, fa } from "../i18n/locales";
-import { uuid } from "../components/Uuid";
-import Toast from "react-native-toast-message";
+import { CategoryContext } from "../context/context/categoryContext";
 
 const customFonts = {
   farsan: require("../assets/fonts/farsan.ttf"),
@@ -38,184 +19,24 @@ const customFonts = {
 const HomeScreen = ({ navigation, route }) => {
   const [isFontLoaded] = useFonts(customFonts);
   const [language, setLanguage] = useState("fa-IR");
-  // const [exitApp, setExitApp] = useState(0);
-  // const toast = useToast();
+  const [data, setData] = useState(null);
+  const { category } = useContext(CategoryContext);
 
-  const [locationData, setLocationData] = useState([
-    {
-      en: " bank ",
-      fa: " بانک ",
-      isEnabled: true,
-      id: uuid(),
-    },
-    {
-      en: " restaurant ",
-      fa: " رستوران ",
-      isEnabled: true,
-      id: uuid(),
-    },
-    {
-      en: " masque ",
-      fa: " مسجد ",
-      isEnabled: true,
-      id: uuid(),
-    },
-    {
-      en: " airport ",
-      fa: " فرودگاه ",
-      isEnabled: true,
-      id: uuid(),
-    },
-    {
-      en: " hotel ",
-      fa: " هتل ",
-      isEnabled: true,
-      id: uuid(),
-    },
-    {
-      en: " school ",
-      fa: " مدرسه ",
-      isEnabled: true,
-      id: uuid(),
-    },
-  ]);
-  const [thingsData, setThingsData] = useState([
-    {
-      en: " pencil ",
-      fa: " مداد ",
-      isEnabled: true,
-      id: uuid(),
-    },
-    {
-      en: " mobile ",
-      fa: " موبایل ",
-      isEnabled: true,
-      id: uuid(),
-    },
-    {
-      en: " shoes ",
-      fa: " کفش ",
-      isEnabled: true,
-      id: uuid(),
-    },
-    {
-      en: " car ",
-      fa: " ماشین ",
-      isEnabled: true,
-      id: uuid(),
-    },
-    {
-      en: " tv ",
-      fa: " تلویزیون ",
-      isEnabled: true,
-      id: uuid(),
-    },
-    {
-      en: " toy ",
-      fa: " اسباب بازی ",
-      isEnabled: true,
-      id: uuid(),
-    },
-  ]);
-  const [variousData, setVariousData] = useState([
-    {
-      en: " marriage ",
-      fa: " ازدواج ",
-      isEnabled: true,
-      id: uuid(),
-    },
-    {
-      en: " dream ",
-      fa: " رویا ",
-      isEnabled: true,
-      id: uuid(),
-    },
-    {
-      en: " party ",
-      fa: " جشن ",
-      isEnabled: true,
-      id: uuid(),
-    },
-    {
-      en: " happy ",
-      fa: " خوشحال ",
-      isEnabled: true,
-      id: uuid(),
-    },
-    {
-      en: " water ",
-      fa: " آب ",
-      isEnabled: true,
-      id: uuid(),
-    },
-    {
-      en: " jungle ",
-      fa: " جنگل ",
-      isEnabled: true,
-      id: uuid(),
-    },
-  ]);
-  const [mixData, setMixData] = useState([
-    {
-      en: " bank ",
-      fa: " بانک ",
-      isEnabled: true,
-      id: uuid(),
-    },
-    {
-      en: " party ",
-      fa: " جشن ",
-      isEnabled: true,
-      id: uuid(),
-    },
-    {
-      en: " shoes ",
-      fa: " کفش ",
-      isEnabled: true,
-      id: uuid(),
-    },
-    {
-      en: " car ",
-      fa: " ماشین ",
-      isEnabled: true,
-      id: uuid(),
-    },
-    {
-      en: " marriage ",
-      fa: " ازدواج ",
-      isEnabled: true,
-      id: uuid(),
-    },
-    {
-      en: " boy ",
-      fa: " پسر ",
-      isEnabled: true,
-      id: uuid(),
-    },
-  ]);
+  const loadAllData = async () => {
+    setData({
+      location: await require("../context/context/locationContext"),
+    });
+  };
 
-  console.log("route.params?.locationDataHome", route.params?.locationDataHome);
+  const { state, dispatch } = useContext(loadAllData[category]);
+
+  useEffect(() => {
+    if (!data) loadAllData();
+  }, [category, data]);
 
   i18n.fallbacks = true;
   i18n.translations = { en, fa };
   i18n.locale = language;
-
-  useEffect(() => {
-    const backAction = () => {
-      Toast.show({
-        type: "info",
-        text1: "This is an info message",
-      });
-      return true;
-    };
-
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      backAction
-    );
-
-    return () => backHandler.remove();
-  }, []);
 
   if (!isFontLoaded) {
     return null;
@@ -237,10 +58,7 @@ const HomeScreen = ({ navigation, route }) => {
         style={[
           styles.title,
           {
-            flexDirection:
-              language == "en-US" || Localization.locale == "fa-IR"
-                ? "row"
-                : "row-reverse",
+            flexDirection: language == "en-US" ? "row" : "row-reverse",
           },
         ]}
       >
@@ -276,23 +94,6 @@ const HomeScreen = ({ navigation, route }) => {
             onPress={() =>
               navigation.navigate("Start", {
                 language,
-                category: route.params?.category ?? "location",
-                locationStart:
-                  route.params?.locationDataHome.filter((item) => {
-                    return item.isEnabled;
-                  }) ?? locationData,
-                thingsStart:
-                  route.params?.thingsDataHome.filter((item) => {
-                    return item.isEnabled;
-                  }) ?? thingsData,
-                variousStart:
-                  route.params?.variousDataHome.filter((item) => {
-                    return item.isEnabled;
-                  }) ?? variousData,
-                mixStart:
-                  route.params?.mixDataHome.filter((item) => {
-                    return item.isEnabled;
-                  }) ?? mixData,
               })
             }
             variant="outline"
@@ -317,11 +118,6 @@ const HomeScreen = ({ navigation, route }) => {
             onPress={() =>
               navigation.navigate("ChangeCategory", {
                 language,
-                cat: route.params?.category ?? "location",
-                lh: route.params?.locationDataHome ?? locationData,
-                th: route.params?.thingsDataHome ?? thingsData,
-                vh: route.params?.variousDataHome ?? variousData,
-                mh: route.params?.mixDataHome ?? mixData,
               })
             }
             variant="outline"
