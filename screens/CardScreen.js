@@ -1,10 +1,11 @@
-import React, { useEffect, useState, useRef, createRef } from "react";
+import React, { useEffect, useState, useRef, createRef, useContext } from "react";
 import { StyleSheet, StatusBar, SafeAreaView } from "react-native";
 import { Text, Box, Center, FlatList } from "native-base";
 import { useFonts } from "expo-font";
 import i18n from "i18n-js";
 import { en, fa } from "../i18n/locales";
 import RenderCard from "./../components/RenderCard";
+import { SettingsDataContext } from './../context/context/settingsDataContext';
 
 i18n.fallbacks = true;
 i18n.translations = { en, fa };
@@ -15,13 +16,15 @@ const customFonts = {
 };
 
 const Cards = ({ navigation, route }) => {
-  const { language, category, players, spies, timer, randomItem } =
+  const { language, randomItem } =
     route.params;
   const [isFontLoaded] = useFonts(customFonts);
-  const playersArr = [...Array(players - spies).keys()].map(
+  const { settingsData, dispatch: settingsDispatch } = useContext(SettingsDataContext)
+
+  const playersArr = [...Array(settingsData.player - settingsData.spy).keys()].map(
     (item) => (item = randomItem)
   );
-  const spiesArr = [...Array(spies).keys()].map(
+  const spiesArr = [...Array(settingsData.spy).keys()].map(
     (item) => (item = i18n.t("spy"))
   );
   const mergeArr = [...playersArr, ...spiesArr];
@@ -31,7 +34,7 @@ const Cards = ({ navigation, route }) => {
   const [questionRef, setQuestionRef] = useState([]);
   const [spyList, setSpyList] = useState([]);
 
-  // console.log("spyList :", spyList);
+  console.log("spyList :", spyList);
 
   useEffect(() => {
     // add or remove refs
@@ -49,7 +52,7 @@ const Cards = ({ navigation, route }) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
-      {spies >= players - spies ? (
+      {settingsData.spy >= settingsData.player - settingsData.spy ? (
         <Center
           style={{
             marginTop: 40,
@@ -85,7 +88,7 @@ const Cards = ({ navigation, route }) => {
                 questionRef={questionRef[index]}
                 index={index}
                 lastIndex={randomRender.length - 1}
-                timer={timer}
+                timer={settingsData.timer}
                 spyList={spyList}
                 setSpyList={setSpyList}
               />

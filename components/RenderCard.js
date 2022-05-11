@@ -1,35 +1,16 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import {
-  View,
   StyleSheet,
-  StatusBar,
-  SafeAreaView,
   Dimensions,
   TouchableOpacity,
-  ScrollView,
-  FlatList,
 } from "react-native";
 import {
   Text,
   Box,
   Center,
-  Container,
-  Image,
-  VStack,
   Button,
-  Pressable,
-  Heading,
-  Select,
-  Switch,
 } from "native-base";
-import {
-  EvilIcons,
-  AntDesign,
-  FontAwesome5,
-  FontAwesome,
-} from "@expo/vector-icons";
 import { useFonts } from "expo-font";
-import * as Localization from "expo-localization";
 import i18n from "i18n-js";
 import { en, fa } from "../i18n/locales";
 import { useNavigation } from "@react-navigation/native";
@@ -50,8 +31,8 @@ const RenderCard = (props) => {
     questionRef,
     lastIndex,
     timer,
-    spyList,
-    setSpyList,
+    // spyList,
+    // setSpyList,
   } = props;
   const [isFontLoaded] = useFonts(customFonts);
   const [title, setTitle] = useState(
@@ -60,16 +41,16 @@ const RenderCard = (props) => {
 
   const navigation = useNavigation();
 
-  const checkSpy = () => {
-    if (item == " جاسوس " || item == " Spy ") {
-      // console.log("render card new :", { item, index });
-      setSpyList((prev) => [...prev, { item, index }]);
-    }
-  };
+  // const checkSpy = () => {
+  //   if (item == " جاسوس " || item == " Spy ") {
+  //     // console.log("render card new :", { item, index });
+  //     setSpyList((prev) => [...prev, { item, index }]);
+  //   }
+  // };
 
-  useEffect(() => {
-    checkSpy();
-  }, [index]);
+  // useEffect(() => {
+  //   checkSpy();
+  // }, [index]);
 
   if (!isFontLoaded) {
     return null;
@@ -121,7 +102,7 @@ const RenderCard = (props) => {
               display:
                 title !==
                   (language === "en-US" ? " Click It " : "  کلیک کن  ") &&
-                index === lastIndex
+                  index === lastIndex
                   ? "none"
                   : "flex",
             }}
@@ -153,15 +134,14 @@ const RenderCard = (props) => {
             onPress={() => {
               navigation.replace("Timer", {
                 language,
-                timer,
-                spyList,
+                timer
               });
             }}
             style={{
               display:
                 title !==
                   (language === "en-US" ? " Click It " : "  کلیک کن  ") &&
-                index === lastIndex
+                  index === lastIndex
                   ? "flex"
                   : "none",
             }}

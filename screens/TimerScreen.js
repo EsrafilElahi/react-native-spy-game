@@ -20,7 +20,7 @@ const customFonts = {
 };
 
 const Timer = ({ navigation, route }) => {
-  const { language, timer, spyList } = route.params;
+  const { language, timer } = route.params;
   const [isFontLoaded] = useFonts(customFonts);
 
   if (!isFontLoaded) {

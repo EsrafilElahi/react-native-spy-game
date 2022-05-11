@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import {
   StyleSheet,
   StatusBar,
@@ -17,6 +17,9 @@ import VariousWordScreen from "./categories/VariousWordScreen";
 import MixAllCategoryScreen from "./categories/MixAllCategoryScreen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+import { ContainerContext } from "../context/context/containerContext";
+import { CategoryContext } from './../context/context/categoryContext';
+
 i18n.fallbacks = true;
 i18n.translations = { en, fa };
 
@@ -26,8 +29,54 @@ const customFonts = {
 };
 
 const ChangeCategoryScreen = ({ navigation, route }) => {
-  const { language, cat } = route.params;
+  const { language } = route.params;
   const [isFontLoaded] = useFonts(customFonts);
+
+  const [data, setData] = useState(null);
+  const { category, dispatch: categoryDispatch } = useContext(CategoryContext);
+  const { state, dispatch: containerDispatch } = useContext(ContainerContext);
+
+  const loadLocation = async () => {
+    try {
+      let location = await state.filter(item => item.location)
+      await setData(location[0].location)
+    } catch (error) {
+      console.log('error load data :', error)
+    }
+  }
+  const loadThings = async () => {
+    try {
+      let thing = await state.filter(item => item.things)
+      await setData(thing[0].things)
+    } catch (error) {
+      console.log('error load data :', error)
+    }
+  }
+  const loadVarious = async () => {
+    try {
+      let various = await state.filter(item => item.various)
+      await setData(various[0].various)
+    } catch (error) {
+      console.log('error load data :', error)
+    }
+  }
+  const loadMix = async () => {
+    try {
+      let mix = await state.filter(item => item.mix)
+      await setData(mix[0].mix)
+    } catch (error) {
+      console.log('error load data :', error)
+    }
+  }
+
+  // console.log(`data Change ${category.category} :`, data);
+
+  useEffect(() => {
+    if (category.category === "location") loadLocation();
+    if (category.category === "things") loadThings();
+    if (category.category === "various") loadVarious();
+    if (category.category === "mix") loadMix();
+  }, [category.category])
 
   if (!isFontLoaded) {
     return null;
@@ -63,9 +112,9 @@ const ChangeCategoryScreen = ({ navigation, route }) => {
               fontFamily: language === "en-US" ? "farsan" : "vahid",
               fontSize: language === "en-US" ? 18 : 19,
             }}
-            selectedValue={category}
+            selectedValue={category.category}
             mt={1}
-            onValueChange={(itemValue) => setCategory(itemValue)}
+            onValueChange={(itemValue) => categoryDispatch({ type: "CHANGE_CATEGORY", payload: itemValue })}
             _selectedItem={{
               bg: "teal.500",
               borderRadius: 10,
