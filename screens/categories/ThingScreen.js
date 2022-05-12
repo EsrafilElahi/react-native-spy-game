@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import {
   StyleSheet,
   StatusBar,
@@ -23,6 +23,13 @@ import { en, fa } from "../../i18n/locales";
 import RenderItem from "../../components/RenderItem";
 import { uuid } from "../../lib/utils";
 
+import { CategoryContext } from './../../context/context/categoryContext';
+import { LocationContext } from './../../context/context/locationContext';
+import { ThingsContext } from './../../context/context/thingsContext';
+import { VariousContext } from './../../context/context/variousContext';
+import { MixContext } from './../../context/context/mixContext';
+
+
 i18n.fallbacks = true;
 i18n.translations = { en, fa };
 
@@ -32,75 +39,30 @@ const customFonts = {
 };
 
 const ThingScreen = ({ navigation, route }) => {
-  const { language, thing } = route.params;
+  const { language } = route.params;
   const [isFontLoaded] = useFonts(customFonts);
+
   const [persian, setPersian] = useState("  ");
   const [english, setEnglish] = useState("  ");
   const [showModal, setShowModal] = useState(false);
-
-  const [thingsData, setThingsData] = useState(
-    thing ?? [
-      {
-        en: " pencil ",
-        fa: " مداد ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " mobile ",
-        fa: " موبایل ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " shoes ",
-        fa: " کفش ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " car ",
-        fa: " ماشین ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " tv ",
-        fa: " تلویزیون ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " toy ",
-        fa: " اسباب بازی ",
-        isEnabled: true,
-        id: uuid(),
-      },
-    ]
-  );
-
-  const handleAddItem = () => {
-    setShowModal(false);
-    setPersian("");
-    setEnglish("");
-    let copy = [...thingsData];
-    copy.push({ fa: persian, en: english, isEnabled: true });
-    setThingsData(copy);
-  };
-
-  const changeSwitch = (id) => {
-    let copyData = [...thingsData];
-    let updatedData = copyData.map((item) => {
-      if (item.id === id) {
-        return { ...item, isEnabled: !item.isEnabled };
-      }
-      return item;
-    });
-    setThingsData(updatedData);
-  };
+  const { things, dispatch: thingsDispatch } = useContext(ThingsContext);
 
   if (!isFontLoaded) {
     return null;
+  }
+
+  const handleAddItem = () => {
+    thingsDispatch({
+      type: "ADD_ITEM", payload: {
+        fa: persian,
+        en: english,
+        isEnabled: true,
+        id: uuid(),
+      }
+    })
+    setPersian("  ");
+    setEnglish("  ");
+    setShowModal(false);
   }
 
   return (
@@ -113,7 +75,6 @@ const ThingScreen = ({ navigation, route }) => {
           onPress={() =>
             navigation.navigate({
               name: "ChangeCategory",
-              params: { thingsData },
               merge: true,
             })
           }
@@ -263,15 +224,14 @@ const ThingScreen = ({ navigation, route }) => {
       </Box>
       <Box style={styles.list}>
         <FlatList
-          data={thingsData}
-          keyExtractor={(item, index) => index}
+          data={things}
+          keyExtractor={(item, index) => item.id}
           renderItem={({ item }) => (
             <RenderItem
               language={language}
               item={language === "en-US" ? item.en : item.fa}
               isEnabled={item.isEnabled}
               id={item.id}
-              changeSwitch={changeSwitch}
             />
           )}
         />

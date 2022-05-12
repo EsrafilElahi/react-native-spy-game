@@ -1,9 +1,15 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import { StyleSheet, Dimensions } from "react-native";
 import { Text, Box, Switch } from "native-base";
 import { useFonts } from "expo-font";
 import i18n from "i18n-js";
 import { en, fa } from "../i18n/locales";
+
+import { LocationContext } from './../context/context/locationContext';
+import { ThingsContext } from './../context/context/thingsContext';
+import { VariousContext } from "../context/context/variousContext";
+import { MixContext } from './../context/context/mixContext';
+import { CategoryContext } from './../context/context/categoryContext';
 
 i18n.fallbacks = true;
 i18n.translations = { en, fa };
@@ -13,8 +19,29 @@ const customFonts = {
   vahid: require("../assets/fonts/vahid.ttf"),
 };
 
-const RenderItem = ({ item, language, isEnabled, id, changeSwitch }) => {
+const RenderItem = ({ item, language, isEnabled, id }) => {
   const [isFontLoaded] = useFonts(customFonts);
+
+  const { category, dispatch: categoryDispatch } = useContext(CategoryContext)
+  const { location, dispatch: locationDispatch } = useContext(LocationContext)
+  const { things, dispatch: thingsDispatch } = useContext(ThingsContext)
+  const { various, dispatch: variousDispatch } = useContext(VariousContext)
+  const { mix, dispatch: mixDispatch } = useContext(MixContext)
+
+  const handleDispatch = () => {
+    if (category.category === "location") {
+      locationDispatch({ type: "CHANGE_ENABLE", payload: id })
+    }
+    if (category.category === "things") {
+      thingsDispatch({ type: "CHANGE_ENABLE", payload: id })
+    }
+    if (category.category === "various") {
+      variousDispatch({ type: "CHANGE_ENABLE", payload: id })
+    }
+    if (category.category === "mix") {
+      mixDispatch({ type: "CHANGE_ENABLE", payload: id })
+    }
+  }
 
   if (!isFontLoaded) {
     return null;
@@ -35,7 +62,7 @@ const RenderItem = ({ item, language, isEnabled, id, changeSwitch }) => {
         <Switch
           colorScheme="teal"
           isChecked={isEnabled}
-          onToggle={() => changeSwitch(id)}
+          onToggle={handleDispatch}
         />
       </Box>
       <Box

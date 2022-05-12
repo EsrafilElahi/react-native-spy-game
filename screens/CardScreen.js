@@ -6,6 +6,7 @@ import i18n from "i18n-js";
 import { en, fa } from "../i18n/locales";
 import RenderCard from "./../components/RenderCard";
 import { SettingsDataContext } from './../context/context/settingsDataContext';
+import { SpyListContext } from './../context/context/spyListContext';
 
 i18n.fallbacks = true;
 i18n.translations = { en, fa };
@@ -20,21 +21,20 @@ const Cards = ({ navigation, route }) => {
     route.params;
   const [isFontLoaded] = useFonts(customFonts);
   const { settingsData, dispatch: settingsDispatch } = useContext(SettingsDataContext)
+  const { spyList, dispatch: spyListDispatch } = useContext(SpyListContext);
+
 
   const playersArr = [...Array(settingsData.player - settingsData.spy).keys()].map(
     (item) => (item = randomItem)
   );
   const spiesArr = [...Array(settingsData.spy).keys()].map(
-    (item) => (item = i18n.t("spy"))
+    item => (item = i18n.t("spy"))
   );
   const mergeArr = [...playersArr, ...spiesArr];
   const randomRender = mergeArr.sort((a, b) => Math.random() - 0.5);
 
   const arrLength = randomRender.length;
   const [questionRef, setQuestionRef] = useState([]);
-  const [spyList, setSpyList] = useState([]);
-
-  console.log("spyList :", spyList);
 
   useEffect(() => {
     // add or remove refs
@@ -44,6 +44,12 @@ const Cards = ({ navigation, route }) => {
         .map((_, i) => questionRef[i] || createRef())
     );
   }, [arrLength]);
+
+
+  // if (item === i18n.t("spy")) {
+  //   spyListDispatch({ type: "ADD_SPY", payload: index })
+  // }
+
 
   if (!isFontLoaded) {
     return null;
@@ -79,7 +85,7 @@ const Cards = ({ navigation, route }) => {
             horizontal
             pagingEnabled
             showsHorizontalScrollIndicator={false}
-            data={randomRender.reverse()}
+            data={randomRender}
             keyExtractor={(item, index) => index}
             renderItem={({ item, index, arr }) => (
               <RenderCard
@@ -89,8 +95,6 @@ const Cards = ({ navigation, route }) => {
                 index={index}
                 lastIndex={randomRender.length - 1}
                 timer={settingsData.timer}
-                spyList={spyList}
-                setSpyList={setSpyList}
               />
             )}
           />

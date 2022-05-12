@@ -11,13 +11,10 @@ import { useFonts } from "expo-font";
 import i18n from "i18n-js";
 import { en, fa } from "../i18n/locales";
 
-import LocationScreen from "./categories/LocationScreen";
-import ThingScreen from "./categories/ThingScreen";
-import VariousWordScreen from "./categories/VariousWordScreen";
-import MixAllCategoryScreen from "./categories/MixAllCategoryScreen";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
-import { ContainerContext } from "../context/context/containerContext";
+import { LocationContext } from "../context/context/locationContext";
+import { ThingsContext } from './../context/context/thingsContext';
+import { VariousContext } from './../context/context/variousContext';
+import { MixContext } from './../context/context/mixContext';
 import { CategoryContext } from './../context/context/categoryContext';
 
 i18n.fallbacks = true;
@@ -31,52 +28,11 @@ const customFonts = {
 const ChangeCategoryScreen = ({ navigation, route }) => {
   const { language } = route.params;
   const [isFontLoaded] = useFonts(customFonts);
-
-  const [data, setData] = useState(null);
   const { category, dispatch: categoryDispatch } = useContext(CategoryContext);
-  const { state, dispatch: containerDispatch } = useContext(ContainerContext);
-
-  const loadLocation = async () => {
-    try {
-      let location = await state.filter(item => item.location)
-      await setData(location[0].location)
-    } catch (error) {
-      console.log('error load data :', error)
-    }
-  }
-  const loadThings = async () => {
-    try {
-      let thing = await state.filter(item => item.things)
-      await setData(thing[0].things)
-    } catch (error) {
-      console.log('error load data :', error)
-    }
-  }
-  const loadVarious = async () => {
-    try {
-      let various = await state.filter(item => item.various)
-      await setData(various[0].various)
-    } catch (error) {
-      console.log('error load data :', error)
-    }
-  }
-  const loadMix = async () => {
-    try {
-      let mix = await state.filter(item => item.mix)
-      await setData(mix[0].mix)
-    } catch (error) {
-      console.log('error load data :', error)
-    }
-  }
-
-  // console.log(`data Change ${category.category} :`, data);
-
-  useEffect(() => {
-    if (category.category === "location") loadLocation();
-    if (category.category === "things") loadThings();
-    if (category.category === "various") loadVarious();
-    if (category.category === "mix") loadMix();
-  }, [category.category])
+  const { location, dispatch: locationDispatch } = useContext(LocationContext);
+  const { things, dispatch: thingsDispatch } = useContext(ThingsContext);
+  const { various, dispatch: variousDispatch } = useContext(VariousContext);
+  const { mix, dispatch: mixDispatch } = useContext(MixContext);
 
   if (!isFontLoaded) {
     return null;
@@ -189,13 +145,13 @@ const ChangeCategoryScreen = ({ navigation, route }) => {
           <Button
             onPress={() =>
               navigation.navigate(
-                // category === "location"
-                //   ? "location"
-                //   : category === "things"
-                //   ? "things"
-                //   : category === "various"
-                //   ? "various"
-                //   : "mix",
+                category.category === "location"
+                  ? "location"
+                  : category.category === "things"
+                    ? "things"
+                    : category.category === "various"
+                      ? "various"
+                      : "mix",
                 {
                   language,
                 }

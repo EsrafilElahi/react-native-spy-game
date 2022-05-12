@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import {
   StyleSheet,
   StatusBar,
@@ -10,6 +10,7 @@ import { Text, Box, Button } from "native-base";
 import { useFonts } from "expo-font";
 import i18n from "i18n-js";
 import { en, fa } from "../i18n/locales";
+import { SpyListContext } from './../context/context/spyListContext';
 
 i18n.fallbacks = true;
 i18n.translations = { en, fa };
@@ -20,15 +21,13 @@ const customFonts = {
 };
 
 const FinishScreen = ({ navigation, route }) => {
-  const { language, spyList } = route.params;
+  const { language } = route.params;
   const [isFontLoaded] = useFonts(customFonts);
-  const data = [4, 2, 5, 6, 1];
+  const { spyList, dispatch: spyListDispatch } = useContext(SpyListContext);
 
   if (!isFontLoaded) {
     return null;
   }
-
-  console.log("spyList =>", spyList);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -50,7 +49,7 @@ const FinishScreen = ({ navigation, route }) => {
       </Box>
       <Box style={styles.spiesList}>
         <FlatList
-          data={data}
+          data={spyList}
           showsHorizontalScrollIndicator={false}
           keyExtractor={(item, index) => index}
           renderItem={({ item }) => (
@@ -71,7 +70,10 @@ const FinishScreen = ({ navigation, route }) => {
       </Box>
       <Box style={styles.footer}>
         <TouchableOpacity style={{ width: "80%" }}>
-          <Button onPress={() => navigation.replace("Home")} variant="outline">
+          <Button onPress={() => {
+            navigation.replace("Home");
+            spyListDispatch({ type: "CLEAR" })
+          }} variant="outline">
             <Text
               style={[
                 styles.btn,

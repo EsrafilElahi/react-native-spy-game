@@ -9,8 +9,12 @@ import { Text, Box, Button, Select } from "native-base";
 import { useFonts } from "expo-font";
 import i18n from "i18n-js";
 import { en, fa } from "../i18n/locales";
+
+import { LocationContext } from "../context/context/locationContext";
+import { ThingsContext } from './../context/context/thingsContext';
+import { VariousContext } from './../context/context/variousContext';
+import { MixContext } from './../context/context/mixContext';
 import { CategoryContext } from "../context/context/categoryContext";
-import { ContainerContext } from "../context/context/containerContext";
 import { SettingsDataContext } from './../context/context/settingsDataContext';
 
 i18n.fallbacks = true;
@@ -28,9 +32,13 @@ const StartScreen = ({ navigation, route }) => {
   const [isFontLoaded] = useFonts(customFonts);
   const [data, setData] = useState(null);
   const [randomItem, setRandomItem] = useState();
+
   const { category, dispatch: categoryDispatch } = useContext(CategoryContext);
-  const { state, dispatch: containerDispatch } = useContext(ContainerContext);
   const { settingsData, dispatch: settingsDispatch } = useContext(SettingsDataContext)
+  const { location, dispatch: locationDispatch } = useContext(LocationContext)
+  const { things, dispatch: thingsDispatch } = useContext(ThingsContext)
+  const { various, dispatch: variousDispatch } = useContext(VariousContext)
+  const { mix, dispatch: mixDispatch } = useContext(MixContext)
 
   const loadRandomItem = async () => {
     if (data) {
@@ -50,49 +58,46 @@ const StartScreen = ({ navigation, route }) => {
 
   const loadLocation = async () => {
     try {
-      let location = await state.filter(item => item.location)
-      await setData(location[0].location)
+      let isEnabled = location.filter(item => item.isEnabled);
+      await setData(isEnabled)
     } catch (error) {
-      console.log('error load data :', error)
+      console.log('error load location', error)
     }
   }
   const loadThings = async () => {
     try {
-      let thing = await state.filter(item => item.things)
-      await setData(thing[0].things)
+      let isEnabled = things.filter(item => item.isEnabled);
+      await setData(isEnabled)
     } catch (error) {
-      console.log('error load data :', error)
+      console.log('error load location', error)
     }
   }
   const loadVarious = async () => {
     try {
-      let various = await state.filter(item => item.various)
-      await setData(various[0].various)
+      let isEnabled = various.filter(item => item.isEnabled);
+      await setData(isEnabled)
     } catch (error) {
-      console.log('error load data :', error)
+      console.log('error load location', error)
     }
   }
   const loadMix = async () => {
     try {
-      let mix = await state.filter(item => item.mix)
-      await setData(mix[0].mix)
+      let isEnabled = mix.filter(item => item.isEnabled);
+      await setData(isEnabled)
     } catch (error) {
-      console.log('error load data :', error)
+      console.log('error load location', error)
     }
   }
-
-  // console.log(`data Home ${category.category} :`, data);
-  // console.log(`random item :`, randomItem);
 
   useEffect(() => {
     loadRandomItem();
   }, [data, category.category])
 
   useEffect(() => {
-    if (category.category === "location") loadLocation();
-    if (category.category === "things") loadThings();
-    if (category.category === "various") loadVarious();
-    if (category.category === "mix") loadMix();
+    if (category.category === "location") loadLocation()
+    if (category.category === "things") loadThings()
+    if (category.category === "various") loadVarious()
+    if (category.category === "mix") loadMix()
   }, [category.category])
 
   if (!isFontLoaded) {

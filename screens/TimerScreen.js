@@ -68,7 +68,9 @@ const Timer = ({ navigation, route }) => {
         }}
       >
         <TouchableOpacity style={{ width: "100%" }}>
-          <Button onPress={() => navigation.replace("Home")} variant="outline">
+          <Button onPress={() => navigation.replace("Finish", {
+            language
+          })} variant="outline">
             <Text
               style={[
                 styles.btn,

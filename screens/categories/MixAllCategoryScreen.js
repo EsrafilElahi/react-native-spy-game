@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import {
   StyleSheet,
   StatusBar,
@@ -23,6 +23,12 @@ import { en, fa } from "../../i18n/locales";
 import RenderItem from "../../components/RenderItem";
 import { uuid } from "../../lib/utils";
 
+import { CategoryContext } from './../../context/context/categoryContext';
+import { LocationContext } from './../../context/context/locationContext';
+import { ThingsContext } from './../../context/context/thingsContext';
+import { VariousContext } from './../../context/context/variousContext';
+import { MixContext } from './../../context/context/mixContext';
+
 i18n.fallbacks = true;
 i18n.translations = { en, fa };
 
@@ -32,75 +38,30 @@ const customFonts = {
 };
 
 const MixAllCategoryScreen = ({ navigation, route }) => {
-  const { language, mix } = route.params;
+  const { language } = route.params;
   const [isFontLoaded] = useFonts(customFonts);
+
   const [persian, setPersian] = useState("  ");
   const [english, setEnglish] = useState("  ");
   const [showModal, setShowModal] = useState(false);
-
-  const [mixData, setMixData] = useState(
-    mix ?? [
-      {
-        en: " bank ",
-        fa: " بانک ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " party ",
-        fa: " جشن ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " shoes ",
-        fa: " کفش ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " car ",
-        fa: " ماشین ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " marriage ",
-        fa: " ازدواج ",
-        isEnabled: true,
-        id: uuid(),
-      },
-      {
-        en: " boy ",
-        fa: " پسر ",
-        isEnabled: true,
-        id: uuid(),
-      },
-    ]
-  );
-
-  const handleAddItem = () => {
-    setShowModal(false);
-    setPersian("");
-    setEnglish("");
-    let copy = [...mixData];
-    copy.push({ fa: persian, en: english, isEnabled: true });
-    setMixData(copy);
-  };
-
-  const changeSwitch = (id) => {
-    let copyData = [...mixData];
-    let updatedData = copyData.map((item) => {
-      if (item.id === id) {
-        return { ...item, isEnabled: !item.isEnabled };
-      }
-      return item;
-    });
-    setMixData(updatedData);
-  };
+  const { mix, dispatch: mixDispatch } = useContext(MixContext);
 
   if (!isFontLoaded) {
     return null;
+  }
+
+  const handleAddItem = () => {
+    mixDispatch({
+      type: "ADD_ITEM", payload: {
+        fa: persian,
+        en: english,
+        isEnabled: true,
+        id: uuid(),
+      }
+    })
+    setPersian("  ");
+    setEnglish("  ");
+    setShowModal(false);
   }
 
   return (
@@ -113,7 +74,6 @@ const MixAllCategoryScreen = ({ navigation, route }) => {
           onPress={() =>
             navigation.navigate({
               name: "ChangeCategory",
-              params: { mixData },
               merge: true,
             })
           }
@@ -265,15 +225,14 @@ const MixAllCategoryScreen = ({ navigation, route }) => {
 
       <Box style={styles.list}>
         <FlatList
-          data={mixData}
-          keyExtractor={(item, index) => index}
+          data={mix}
+          keyExtractor={(item, index) => item.id}
           renderItem={({ item }) => (
             <RenderItem
               language={language}
               item={language === "en-US" ? item.en : item.fa}
               isEnabled={item.isEnabled}
               id={item.id}
-              changeSwitch={changeSwitch}
             />
           )}
         />

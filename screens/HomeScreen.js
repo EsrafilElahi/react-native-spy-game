@@ -9,8 +9,12 @@ import { Text, Box, Image, Button } from "native-base";
 import { useFonts } from "expo-font";
 import i18n from "i18n-js";
 import { en, fa } from "../i18n/locales";
+
+import { LocationContext } from "../context/context/locationContext";
+import { ThingsContext } from './../context/context/thingsContext';
+import { VariousContext } from './../context/context/variousContext';
+import { MixContext } from './../context/context/mixContext';
 import { CategoryContext } from "../context/context/categoryContext";
-import { ContainerContext } from "../context/context/containerContext";
 
 const customFonts = {
   farsan: require("../assets/fonts/farsan.ttf"),
@@ -20,51 +24,7 @@ const customFonts = {
 const HomeScreen = ({ navigation, route }) => {
   const [isFontLoaded] = useFonts(customFonts);
   const [language, setLanguage] = useState("fa-IR");
-  const [data, setData] = useState(null);
-  const { category, dispatch: categoryDispatch } = useContext(CategoryContext);
-  const { state, dispatch: containerDispatch } = useContext(ContainerContext);
-
-  const loadLocation = async () => {
-    try {
-      let location = await state.filter(item => item.location)
-      await setData(location[0].location)
-    } catch (error) {
-      console.log('error load data :', error)
-    }
-  }
-  const loadThings = async () => {
-    try {
-      let thing = await state.filter(item => item.things)
-      await setData(thing[0].things)
-    } catch (error) {
-      console.log('error load data :', error)
-    }
-  }
-  const loadVarious = async () => {
-    try {
-      let various = await state.filter(item => item.various)
-      await setData(various[0].various)
-    } catch (error) {
-      console.log('error load data :', error)
-    }
-  }
-  const loadMix = async () => {
-    try {
-      let mix = await state.filter(item => item.mix)
-      await setData(mix[0].mix)
-    } catch (error) {
-      console.log('error load data :', error)
-    }
-  }
-
-  // console.log(`data Home ${category.category} :`, data);
-
-  useEffect(() => {
-    if (category.category === "location") loadLocation();
-    if (category.category === "things") loadThings();
-    if (category.category === "various") loadVarious();
-    if (category.category === "mix") loadMix();
-  }, [category.category])
+  // const { category, dispatch: categoryDispatch } = useContext(CategoryContext);
 
   i18n.fallbacks = true;
   i18n.translations = { en, fa };

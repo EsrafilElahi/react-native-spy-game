@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import {
   StyleSheet,
   StatusBar,
@@ -21,6 +21,13 @@ import { useFonts } from "expo-font";
 import i18n from "i18n-js";
 import { en, fa } from "../../i18n/locales";
 import RenderItem from "../../components/RenderItem";
+import { uuid } from './../../lib/utils';
+
+import { CategoryContext } from './../../context/context/categoryContext';
+import { LocationContext } from './../../context/context/locationContext';
+import { ThingsContext } from './../../context/context/thingsContext';
+import { VariousContext } from './../../context/context/variousContext';
+import { MixContext } from './../../context/context/mixContext';
 
 i18n.fallbacks = true;
 i18n.translations = { en, fa };
@@ -37,9 +44,24 @@ const LocationScreen = ({ navigation, route }) => {
   const [persian, setPersian] = useState("  ");
   const [english, setEnglish] = useState("  ");
   const [showModal, setShowModal] = useState(false);
+  const { location, dispatch: locationDispatch } = useContext(LocationContext);
 
   if (!isFontLoaded) {
     return null;
+  }
+
+  const handleAddItem = () => {
+    locationDispatch({
+      type: "ADD_ITEM", payload: {
+        fa: persian,
+        en: english,
+        isEnabled: true,
+        id: uuid(),
+      }
+    })
+    setPersian("  ");
+    setEnglish("  ");
+    setShowModal(false);
   }
 
   return (
@@ -49,7 +71,13 @@ const LocationScreen = ({ navigation, route }) => {
       <Box style={styles.header}>
         <Pressable
           style={styles.back_icon}
-          onPress={() => navigation.navigate("ChangeCategory")}
+          onPress={() => navigation.navigate(
+            {
+              name: "ChangeCategory",
+              merge: true,
+            },
+            // containerDispatch({ type: "CHANGE_ENABLE", payload: { location: data } })
+          )}
         >
           <AntDesign
             style={{
@@ -175,8 +203,7 @@ const LocationScreen = ({ navigation, route }) => {
                       {i18n.t("cancel")}
                     </Text>
                   </Button>
-                  {/* <Button colorScheme="teal" onPress={handleAddItem}> */}
-                  <Button colorScheme="teal">
+                  <Button colorScheme="teal" onPress={handleAddItem}>
                     <Text
                       style={{
                         color: "white",
@@ -195,9 +222,10 @@ const LocationScreen = ({ navigation, route }) => {
           </Modal>
         </Center>
       </Box>
+
       <Box style={styles.list}>
         <FlatList
-          // data={data[0].location}
+          data={location}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <RenderItem
@@ -205,11 +233,11 @@ const LocationScreen = ({ navigation, route }) => {
               item={language === "en-US" ? item.en : item.fa}
               isEnabled={item.isEnabled}
               id={item.id}
-              // changeSwitch={changeSwitch}
             />
           )}
         />
       </Box>
+
     </SafeAreaView>
   );
 };
