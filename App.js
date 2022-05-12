@@ -7,9 +7,13 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { theme } from "./assets/Theme";
 
 // data context providers
+import LocationContextProvider from "./context/context/locationContext";
+import ThingsContextProvider from "./context/context/thingsContext";
+import VariousContextProvider from "./context/context/variousContext";
+import MixContextProvider from "./context/context/mixContext";
 import CategoryContextProvider from "./context/context/categoryContext";
-import ContainerContextProvider from "./context/context/containerContext";
 import SettingsDataContextProvider from "./context/context/settingsDataContext";
+import SpyListContextProvider from "./context/context/spyListContext";
 
 // main stacks
 import HomeScreen from "./screens/HomeScreen";
@@ -42,33 +46,41 @@ export default function App() {
   }
 
   return (
-    <ContainerContextProvider>
-      <CategoryContextProvider>
-        <SettingsDataContextProvider>
-          <NativeBaseProvider theme={theme}>
-            <NavigationContainer>
-              <Stack.Navigator
-                initialRouteName="Home"
-                screenOptions={{ headerShown: false }}
-              >
-                <Stack.Screen name="Home" component={HomeScreen} />
-                <Stack.Screen name="Start" component={StartScreen} />
-                <Stack.Screen
-                  name="ChangeCategory"
-                  component={ChangeCategoryScreen}
-                />
-                <Stack.Screen name="Card" component={CardScreen} />
-                <Stack.Screen name="Timer" component={TimerScreen} />
-                <Stack.Screen name="Finish" component={FinishScreen} />
-                <Stack.Screen name="location" component={LocationScreen} />
-                <Stack.Screen name="things" component={ThingScreen} />
-                <Stack.Screen name="various" component={VariousWordScreen} />
-                <Stack.Screen name="mix" component={MixAllCategoryScreen} />
-              </Stack.Navigator>
-            </NavigationContainer>
-          </NativeBaseProvider>
-        </SettingsDataContextProvider>
-      </CategoryContextProvider>
-    </ContainerContextProvider>
+    <LocationContextProvider>
+      <ThingsContextProvider>
+        <VariousContextProvider>
+          <MixContextProvider>
+            <CategoryContextProvider>
+              <SettingsDataContextProvider>
+                <SpyListContextProvider>
+                  <NativeBaseProvider theme={theme}>
+                    <NavigationContainer>
+                      <Stack.Navigator
+                        initialRouteName="Home"
+                        screenOptions={{ headerShown: false }}
+                      >
+                        <Stack.Screen name="Home" component={HomeScreen} />
+                        <Stack.Screen name="Start" component={StartScreen} />
+                        <Stack.Screen
+                          name="ChangeCategory"
+                          component={ChangeCategoryScreen}
+                        />
+                        <Stack.Screen name="Card" component={CardScreen} />
+                        <Stack.Screen name="Timer" component={TimerScreen} />
+                        <Stack.Screen name="Finish" component={FinishScreen} />
+                        <Stack.Screen name="location" component={LocationScreen} />
+                        <Stack.Screen name="things" component={ThingScreen} />
+                        <Stack.Screen name="various" component={VariousWordScreen} />
+                        <Stack.Screen name="mix" component={MixAllCategoryScreen} />
+                      </Stack.Navigator>
+                    </NavigationContainer>
+                  </NativeBaseProvider>
+                </SpyListContextProvider>
+              </SettingsDataContextProvider>
+            </CategoryContextProvider>
+          </MixContextProvider>
+        </VariousContextProvider>
+      </ThingsContextProvider>
+    </LocationContextProvider>
   );
 }
