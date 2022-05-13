@@ -39,12 +39,9 @@ const StartScreen = ({ navigation, route }) => {
   const { various, dispatch: variousDispatch } = useContext(VariousContext);
   const { mix, dispatch: mixDispatch } = useContext(MixContext);
 
-  let players = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-    22, 23, 24, 25, 26, 27, 28, 29, 30,
-  ];
-  let spies = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  let timer = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+  let players = [...Array(30).keys()].map((item) => item + 1);
+  let spies = [...Array(10).keys()].map((item) => item + 1);
+  let timer = [...Array(15).keys()].map((item) => item + 1);
 
   const loadRandomItem = async () => {
     if (data) {
