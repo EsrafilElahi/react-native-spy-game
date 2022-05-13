@@ -32,7 +32,6 @@ const Cards = ({ navigation, route }) => {
   );
   const mergeArr = [...playersArr, ...spiesArr];
   const randomRender = mergeArr.sort((a, b) => Math.random() - 0.5);
-
   const arrLength = randomRender.length;
   const [questionRef, setQuestionRef] = useState([]);
 
@@ -48,6 +47,9 @@ const Cards = ({ navigation, route }) => {
   if (!isFontLoaded) {
     return null;
   }
+
+  console.log('spay list in cardScreen :', spyList)
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -89,6 +91,7 @@ const Cards = ({ navigation, route }) => {
                 index={index}
                 lastIndex={randomRender.length - 1}
                 timer={settingsData.timer}
+                randomRender={randomRender}
               />
             )}
           />

@@ -5,6 +5,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   FlatList,
+  Center
 } from "react-native";
 import { Text, Box, Button } from "native-base";
 import { useFonts } from "expo-font";
@@ -68,12 +69,11 @@ const FinishScreen = ({ navigation, route }) => {
           )}
         />
       </Box>
-      
+
       <Box style={styles.footer}>
         <TouchableOpacity style={{ width: "80%" }}>
           <Button onPress={() => {
             navigation.replace("Home");
-            spyListDispatch({ type: "CLEAR" })
           }} variant="outline">
             <Text
               style={[

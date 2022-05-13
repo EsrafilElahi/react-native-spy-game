@@ -32,6 +32,7 @@ const RenderCard = (props) => {
     questionRef,
     lastIndex,
     timer,
+    randomRender
   } = props;
   const [isFontLoaded] = useFonts(customFonts);
   const navigation = useNavigation();
@@ -40,15 +41,15 @@ const RenderCard = (props) => {
   );
   const { spyList, dispatch: spyListDispatch } = useContext(SpyListContext);
 
+  const checkSpy = async () => {
+    if (item == i18n.t("spy")) {
+      await spyListDispatch({ type: "ADD_SPY", payload: index })
+    }
+  }
+
   useEffect(() => {
-    console.log(`page index : ${index}`)
-    console.log(`page item : ${item}`)
-    // if (item == i18n.t("spy")) {
-    //   spyListDispatch({ type: "ADD_SPY", payload: index + 1 })
-    // }
-
+    checkSpy()
   }, [])
-
 
   if (!isFontLoaded) {
     return null;

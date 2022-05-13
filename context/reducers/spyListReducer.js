@@ -3,7 +3,7 @@ export const spyListReducer = (state, action) => {
     case "ADD_SPY":
       return [...state, action.payload];
     case "CLEAR":
-      return [];
+      return state = [];
     default:
       return state;
   }
