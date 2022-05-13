@@ -1,14 +1,14 @@
 {
   "expo": {
     "name": "react-native-spy-game",
-    "slug": "Spy Game",
+    "slug": "Spy-Game",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icons/icon.png",
     "splash": {
       "image": "./assets/icons/splash.png",
       "resizeMode": "cover",
-      "backgroundColor": "black"
+      "backgroundColor": "#000000"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -22,8 +22,9 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/icons/adaptive-icon.png",
-        "backgroundColor": "black"
-      }
+        "backgroundColor": "#000000"
+      },
+      "package": "com.spy.game"
     },
     "web": {
       "favicon": "./assets/icons/favicon.png"
