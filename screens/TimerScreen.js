@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, createRef } from "react";
+import React from "react";
 import {
   StyleSheet,
   StatusBar,

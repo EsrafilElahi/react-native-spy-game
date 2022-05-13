@@ -14,7 +14,7 @@ import { useFonts } from "expo-font";
 import i18n from "i18n-js";
 import { en, fa } from "../i18n/locales";
 import { useNavigation } from "@react-navigation/native";
-import { SpyListContext } from './../context/context/spyListContext';
+import { SpyListContext } from '../context/context/spyListContext';
 
 i18n.fallbacks = true;
 i18n.translations = { en, fa };
@@ -39,11 +39,6 @@ const RenderCard = (props) => {
     language === "en-US" ? " Click It " : "  کلیک کن  "
   );
   const { spyList, dispatch: spyListDispatch } = useContext(SpyListContext);
-
-  // console.log('index :', index, item === i18n.t("spy"))
-  // if (item === i18n.t("spy")) {
-  //   spyListDispatch({ type: "ADD_SPY", payload: index })
-  // }
 
   useEffect(() => {
     console.log(`page index : ${index}`)
@@ -86,7 +81,6 @@ const RenderCard = (props) => {
             paddingVertical: language === "en-US" ? 40 : 40,
             width: "100%",
             textAlign: "center",
-            // backgroundColor: "#0d9488",
             opacity: 0,
           }}
         >

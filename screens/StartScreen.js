@@ -11,11 +11,11 @@ import i18n from "i18n-js";
 import { en, fa } from "../i18n/locales";
 
 import { LocationContext } from "../context/context/locationContext";
-import { ThingsContext } from "./../context/context/thingsContext";
-import { VariousContext } from "./../context/context/variousContext";
-import { MixContext } from "./../context/context/mixContext";
+import { ThingsContext } from "../context/context/thingsContext";
+import { VariousContext } from "../context/context/variousContext";
+import { MixContext } from "../context/context/mixContext";
 import { CategoryContext } from "../context/context/categoryContext";
-import { SettingsDataContext } from "./../context/context/settingsDataContext";
+import { SettingsDataContext } from "../context/context/settingsDataContext";
 
 i18n.fallbacks = true;
 i18n.translations = { en, fa };

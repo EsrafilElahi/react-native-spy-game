@@ -5,8 +5,8 @@ import { useFonts } from "expo-font";
 import i18n from "i18n-js";
 import { en, fa } from "../i18n/locales";
 import RenderCard from "./../components/RenderCard";
-import { SettingsDataContext } from './../context/context/settingsDataContext';
-import { SpyListContext } from './../context/context/spyListContext';
+import { SettingsDataContext } from '../context/context/settingsDataContext';
+import { SpyListContext } from '../context/context/spyListContext';
 
 i18n.fallbacks = true;
 i18n.translations = { en, fa };
@@ -44,12 +44,6 @@ const Cards = ({ navigation, route }) => {
         .map((_, i) => questionRef[i] || createRef())
     );
   }, [arrLength]);
-
-
-  // if (item === i18n.t("spy")) {
-  //   spyListDispatch({ type: "ADD_SPY", payload: index })
-  // }
-
 
   if (!isFontLoaded) {
     return null;

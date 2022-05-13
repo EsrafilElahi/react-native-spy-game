@@ -1,6 +1,6 @@
 import React, { createContext, useReducer } from "react";
-import { variousReducer } from './../reducers/variousReducer';
-import { variousState } from './../initialStates/variousState';
+import { variousReducer } from '../reducers/variousReducer';
+import { variousState } from '../initialStates/variousState';
 
 
 export const VariousContext = createContext();

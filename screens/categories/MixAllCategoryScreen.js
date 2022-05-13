@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useContext } from "react";
+import React, { useState, useContext } from "react";
 import {
   StyleSheet,
   StatusBar,
@@ -22,12 +22,7 @@ import i18n from "i18n-js";
 import { en, fa } from "../../i18n/locales";
 import RenderItem from "../../components/RenderItem";
 import { uuid } from "../../lib/utils";
-
-import { CategoryContext } from './../../context/context/categoryContext';
-import { LocationContext } from './../../context/context/locationContext';
-import { ThingsContext } from './../../context/context/thingsContext';
-import { VariousContext } from './../../context/context/variousContext';
-import { MixContext } from './../../context/context/mixContext';
+import { MixContext } from '../../context/context/mixContext';
 
 i18n.fallbacks = true;
 i18n.translations = { en, fa };

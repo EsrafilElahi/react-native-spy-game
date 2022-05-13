@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useContext } from "react";
+import React, { useContext } from "react";
 import {
   StyleSheet,
   StatusBar,
@@ -10,7 +10,7 @@ import { Text, Box, Button } from "native-base";
 import { useFonts } from "expo-font";
 import i18n from "i18n-js";
 import { en, fa } from "../i18n/locales";
-import { SpyListContext } from './../context/context/spyListContext';
+import { SpyListContext } from '../context/context/spyListContext';
 
 i18n.fallbacks = true;
 i18n.translations = { en, fa };
@@ -39,7 +39,6 @@ const FinishScreen = ({ navigation, route }) => {
             fontSize: language === "en-US" ? 35 : 35,
             fontFamily: language === "en-US" ? "farsan" : "vahid",
             paddingTop: 15,
-            // backgroundColor: "teal",
             width: "100%",
             textAlign: "center",
           }}
@@ -47,6 +46,7 @@ const FinishScreen = ({ navigation, route }) => {
           {i18n.t("spyList")}
         </Text>
       </Box>
+
       <Box style={styles.spiesList}>
         <FlatList
           data={spyList}
@@ -68,6 +68,7 @@ const FinishScreen = ({ navigation, route }) => {
           )}
         />
       </Box>
+      
       <Box style={styles.footer}>
         <TouchableOpacity style={{ width: "80%" }}>
           <Button onPress={() => {

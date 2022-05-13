@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useContext } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   StatusBar,
@@ -10,12 +10,6 @@ import { useFonts } from "expo-font";
 import i18n from "i18n-js";
 import { en, fa } from "../i18n/locales";
 
-import { LocationContext } from "../context/context/locationContext";
-import { ThingsContext } from './../context/context/thingsContext';
-import { VariousContext } from './../context/context/variousContext';
-import { MixContext } from './../context/context/mixContext';
-import { CategoryContext } from "../context/context/categoryContext";
-
 const customFonts = {
   farsan: require("../assets/fonts/farsan.ttf"),
   vahid: require("../assets/fonts/vahid.ttf"),
@@ -24,7 +18,6 @@ const customFonts = {
 const HomeScreen = ({ navigation, route }) => {
   const [isFontLoaded] = useFonts(customFonts);
   const [language, setLanguage] = useState("fa-IR");
-  // const { category, dispatch: categoryDispatch } = useContext(CategoryContext);
 
   i18n.fallbacks = true;
   i18n.translations = { en, fa };

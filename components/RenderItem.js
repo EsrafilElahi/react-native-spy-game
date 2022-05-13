@@ -1,15 +1,15 @@
-import React, { useEffect, useState, useRef, useContext } from "react";
+import React, { useContext } from "react";
 import { StyleSheet, Dimensions } from "react-native";
 import { Text, Box, Switch } from "native-base";
 import { useFonts } from "expo-font";
 import i18n from "i18n-js";
 import { en, fa } from "../i18n/locales";
 
-import { LocationContext } from './../context/context/locationContext';
-import { ThingsContext } from './../context/context/thingsContext';
+import { LocationContext } from '../context/context/locationContext';
+import { ThingsContext } from '../context/context/thingsContext';
 import { VariousContext } from "../context/context/variousContext";
-import { MixContext } from './../context/context/mixContext';
-import { CategoryContext } from './../context/context/categoryContext';
+import { MixContext } from '../context/context/mixContext';
+import { CategoryContext } from '../context/context/categoryContext';
 
 i18n.fallbacks = true;
 i18n.translations = { en, fa };
@@ -65,6 +65,7 @@ const RenderItem = ({ item, language, isEnabled, id }) => {
           onToggle={handleDispatch}
         />
       </Box>
+
       <Box
         style={{
           marginTop: language === "en-US" ? 0 : 20,

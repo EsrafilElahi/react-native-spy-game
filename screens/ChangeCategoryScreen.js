@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useContext } from "react";
+import React, { useContext } from "react";
 import {
   StyleSheet,
   StatusBar,
@@ -12,10 +12,10 @@ import i18n from "i18n-js";
 import { en, fa } from "../i18n/locales";
 
 import { LocationContext } from "../context/context/locationContext";
-import { ThingsContext } from './../context/context/thingsContext';
-import { VariousContext } from './../context/context/variousContext';
-import { MixContext } from './../context/context/mixContext';
-import { CategoryContext } from './../context/context/categoryContext';
+import { ThingsContext } from '../context/context/thingsContext';
+import { VariousContext } from '../context/context/variousContext';
+import { MixContext } from '../context/context/mixContext';
+import { CategoryContext } from '../context/context/categoryContext';
 
 i18n.fallbacks = true;
 i18n.translations = { en, fa };
@@ -29,10 +29,6 @@ const ChangeCategoryScreen = ({ navigation, route }) => {
   const { language } = route.params;
   const [isFontLoaded] = useFonts(customFonts);
   const { category, dispatch: categoryDispatch } = useContext(CategoryContext);
-  const { location, dispatch: locationDispatch } = useContext(LocationContext);
-  const { things, dispatch: thingsDispatch } = useContext(ThingsContext);
-  const { various, dispatch: variousDispatch } = useContext(VariousContext);
-  const { mix, dispatch: mixDispatch } = useContext(MixContext);
 
   if (!isFontLoaded) {
     return null;
