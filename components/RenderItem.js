@@ -3,6 +3,7 @@ import { StyleSheet, Dimensions } from "react-native";
 import { Text, Box, Switch } from "native-base";
 import { useFonts } from "expo-font";
 import i18n from "i18n-js";
+import { AntDesign } from '@expo/vector-icons';
 import { en, fa } from "../i18n/locales";
 
 import { LocationContext } from '../context/context/locationContext';
@@ -43,6 +44,21 @@ const RenderItem = ({ item, language, isEnabled, id }) => {
     }
   }
 
+  const handleDelete = () => {
+    if (category.category === "location") {
+      locationDispatch({ type: "REMOVE_ITEM", payload: id })
+    }
+    if (category.category === "things") {
+      thingsDispatch({ type: "REMOVE_ITEM", payload: id })
+    }
+    if (category.category === "various") {
+      variousDispatch({ type: "REMOVE_ITEM", payload: id })
+    }
+    if (category.category === "mix") {
+      mixDispatch({ type: "REMOVE_ITEM", payload: id })
+    }
+  }
+
   if (!isFontLoaded) {
     return null;
   }
@@ -64,6 +80,7 @@ const RenderItem = ({ item, language, isEnabled, id }) => {
           isChecked={isEnabled}
           onToggle={handleDispatch}
         />
+        <AntDesign name="delete" size={24} color="white" style={{ marginHorizontal: 30 }} onPress={handleDelete} />
       </Box>
 
       <Box
@@ -101,5 +118,11 @@ const styles = StyleSheet.create({
     marginTop: 10,
     width: Dimensions.get("screen").width,
   },
-  switch: {},
+  switch: {
+    display: "flex",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    // backgroundColor: "green",
+  },
 });
