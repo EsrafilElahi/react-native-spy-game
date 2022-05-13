@@ -5,17 +5,17 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from "react-native";
-import { Text, Box, Button, Select } from "native-base";
+import { Text, Box, Button, Select, FlatList } from "native-base";
 import { useFonts } from "expo-font";
 import i18n from "i18n-js";
 import { en, fa } from "../i18n/locales";
 
 import { LocationContext } from "../context/context/locationContext";
-import { ThingsContext } from './../context/context/thingsContext';
-import { VariousContext } from './../context/context/variousContext';
-import { MixContext } from './../context/context/mixContext';
+import { ThingsContext } from "./../context/context/thingsContext";
+import { VariousContext } from "./../context/context/variousContext";
+import { MixContext } from "./../context/context/mixContext";
 import { CategoryContext } from "../context/context/categoryContext";
-import { SettingsDataContext } from './../context/context/settingsDataContext';
+import { SettingsDataContext } from "./../context/context/settingsDataContext";
 
 i18n.fallbacks = true;
 i18n.translations = { en, fa };
@@ -26,79 +26,78 @@ const customFonts = {
 };
 
 const StartScreen = ({ navigation, route }) => {
-  const {
-    language,
-  } = route.params;
+  const { language } = route.params;
   const [isFontLoaded] = useFonts(customFonts);
   const [data, setData] = useState(null);
   const [randomItem, setRandomItem] = useState();
 
   const { category, dispatch: categoryDispatch } = useContext(CategoryContext);
-  const { settingsData, dispatch: settingsDispatch } = useContext(SettingsDataContext)
-  const { location, dispatch: locationDispatch } = useContext(LocationContext)
-  const { things, dispatch: thingsDispatch } = useContext(ThingsContext)
-  const { various, dispatch: variousDispatch } = useContext(VariousContext)
-  const { mix, dispatch: mixDispatch } = useContext(MixContext)
+  const { settingsData, dispatch: settingsDispatch } =
+    useContext(SettingsDataContext);
+  const { location, dispatch: locationDispatch } = useContext(LocationContext);
+  const { things, dispatch: thingsDispatch } = useContext(ThingsContext);
+  const { various, dispatch: variousDispatch } = useContext(VariousContext);
+  const { mix, dispatch: mixDispatch } = useContext(MixContext);
+
+  let players = [
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+    22, 23, 24, 25, 26, 27, 28, 29, 30,
+  ];
+  let spies = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  let timer = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
   const loadRandomItem = async () => {
     if (data) {
       if (language === "en-US") {
-        await setRandomItem(
-          data[Math.floor(Math.random() * data?.length)].en
-        );
-      }
-
-      else {
-        await setRandomItem(
-          data[Math.floor(Math.random() * data?.length)].fa
-        );
+        await setRandomItem(data[Math.floor(Math.random() * data?.length)].en);
+      } else {
+        await setRandomItem(data[Math.floor(Math.random() * data?.length)].fa);
       }
     }
-  }
-
+  };
   const loadLocation = async () => {
     try {
-      let isEnabled = location.filter(item => item.isEnabled);
-      await setData(isEnabled)
+      let isEnabled = location.filter((item) => item.isEnabled);
+      await setData(isEnabled);
     } catch (error) {
-      console.log('error load location', error)
+      console.log("error load location", error);
     }
-  }
+  };
   const loadThings = async () => {
     try {
-      let isEnabled = things.filter(item => item.isEnabled);
-      await setData(isEnabled)
+      let isEnabled = things.filter((item) => item.isEnabled);
+      await setData(isEnabled);
     } catch (error) {
-      console.log('error load location', error)
+      console.log("error load location", error);
     }
-  }
+  };
   const loadVarious = async () => {
     try {
-      let isEnabled = various.filter(item => item.isEnabled);
-      await setData(isEnabled)
+      let isEnabled = various.filter((item) => item.isEnabled);
+      await setData(isEnabled);
     } catch (error) {
-      console.log('error load location', error)
+      console.log("error load location", error);
     }
-  }
+  };
   const loadMix = async () => {
     try {
-      let isEnabled = mix.filter(item => item.isEnabled);
-      await setData(isEnabled)
+      let isEnabled = mix.filter((item) => item.isEnabled);
+      await setData(isEnabled);
     } catch (error) {
-      console.log('error load location', error)
+      console.log("error load location", error);
     }
-  }
+  };
 
   useEffect(() => {
     loadRandomItem();
-  }, [data, category.category])
+  }, [data, category.category]);
 
   useEffect(() => {
-    if (category.category === "location") loadLocation()
-    if (category.category === "things") loadThings()
-    if (category.category === "various") loadVarious()
-    if (category.category === "mix") loadMix()
-  }, [category.category])
+    if (category.category === "location") loadLocation();
+    if (category.category === "things") loadThings();
+    if (category.category === "various") loadVarious();
+    if (category.category === "mix") loadMix();
+  }, [category.category]);
 
   if (!isFontLoaded) {
     return null;
@@ -119,236 +118,28 @@ const StartScreen = ({ navigation, route }) => {
             style={{ fontFamily: "farsan", fontSize: 18 }}
             selectedValue={settingsData.player}
             mt={1}
-            onValueChange={(itemValue) => settingsDispatch({ type: "CHANGE_SETTINGS_DATA_PLAYER", payload: { player: itemValue } })}
+            onValueChange={(itemValue) =>
+              settingsDispatch({
+                type: "CHANGE_SETTINGS_DATA_PLAYER",
+                payload: { player: itemValue },
+              })
+            }
             _selectedItem={{
               bg: "teal.500",
               borderRadius: 10,
             }}
           >
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 3 "
-              value={3}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 4 "
-              value={4}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 5 "
-              value={5}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 6 "
-              value={6}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 7 "
-              value={7}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 8 "
-              value={8}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 9 "
-              value={9}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 10 "
-              value={10}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 11 "
-              value={11}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 12 "
-              value={12}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 13 "
-              value={13}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 14 "
-              value={14}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 15 "
-              value={15}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 16 "
-              value={16}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 17 "
-              value={17}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 18 "
-              value={18}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 19 "
-              value={19}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 20 "
-              value={20}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 21 "
-              value={21}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 22 "
-              value={22}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 23 "
-              value={23}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 24 "
-              value={24}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 25 "
-              value={25}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 26 "
-              value={26}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 27 "
-              value={27}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 28 "
-              value={28}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 29 "
-              value={29}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 30 "
-              value={30}
-            />
+            {players.map((item) => (
+              <Select.Item
+                key={item}
+                _text={{
+                  fontFamily: "farsan",
+                  fontSize: 19,
+                }}
+                label={` ${item} `}
+                value={item}
+              />
+            ))}
           </Select>
         </Box>
         <Box w="1/2" style={{ marginTop: 10 }}>
@@ -376,92 +167,28 @@ const StartScreen = ({ navigation, route }) => {
             style={{ fontFamily: "farsan", fontSize: 18 }}
             selectedValue={settingsData.spy}
             mt={1}
-            onValueChange={(itemValue) => settingsDispatch({ type: "CHANGE_SETTINGS_DATA_SPY", payload: { spy: itemValue } })}
+            onValueChange={(itemValue) =>
+              settingsDispatch({
+                type: "CHANGE_SETTINGS_DATA_SPY",
+                payload: { spy: itemValue },
+              })
+            }
             _selectedItem={{
               bg: "teal.600",
               borderRadius: 10,
             }}
           >
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 1 "
-              value={1}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 2 "
-              value={2}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 3 "
-              value={3}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 4 "
-              value={4}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 5 "
-              value={5}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 6 "
-              value={6}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 7 "
-              value={7}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 8 "
-              value={8}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 9 "
-              value={9}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 10 "
-              value={10}
-            />
+            {spies.map((item) => (
+              <Select.Item
+                key={item}
+                _text={{
+                  fontFamily: "farsan",
+                  fontSize: 19,
+                }}
+                label={` ${item} `}
+                value={item}
+              />
+            ))}
           </Select>
         </Box>
         <Box w="1/2" style={{ marginTop: 10 }}>
@@ -489,92 +216,28 @@ const StartScreen = ({ navigation, route }) => {
             style={{ fontFamily: "farsan", fontSize: 18 }}
             selectedValue={settingsData.timer}
             mt={1}
-            onValueChange={(itemValue) => settingsDispatch({ type: "CHANGE_SETTINGS_DATA_TIMER", payload: { timer: itemValue } })}
+            onValueChange={(itemValue) =>
+              settingsDispatch({
+                type: "CHANGE_SETTINGS_DATA_TIMER",
+                payload: { timer: itemValue },
+              })
+            }
             _selectedItem={{
               bg: "teal.600",
               borderRadius: 10,
             }}
           >
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 1 "
-              value={1}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 2 "
-              value={2}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 3 "
-              value={3}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 4 "
-              value={4}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 5 "
-              value={5}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 6 "
-              value={6}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 7 "
-              value={7}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 8 "
-              value={8}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 9 "
-              value={9}
-            />
-            <Select.Item
-              _text={{
-                fontFamily: "farsan",
-                fontSize: 19,
-              }}
-              label=" 10 "
-              value={10}
-            />
+            {timer.map((item) => (
+              <Select.Item
+                key={item}
+                _text={{
+                  fontFamily: "farsan",
+                  fontSize: 19,
+                }}
+                label={` ${item} `}
+                value={item}
+              />
+            ))}
           </Select>
         </Box>
         <Box w="1/2" style={{ marginTop: 10 }}>
@@ -597,7 +260,7 @@ const StartScreen = ({ navigation, route }) => {
             onPress={() =>
               navigation.navigate("Card", {
                 language,
-                randomItem
+                randomItem,
               })
             }
             variant="outline"

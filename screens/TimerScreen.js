@@ -30,6 +30,7 @@ const Timer = ({ navigation, route }) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor="black" barStyle="light-content" />
+
       <Center
         style={{
           paddingTop: 30,
@@ -57,6 +58,7 @@ const Timer = ({ navigation, route }) => {
           showSeparator
         />
       </Center>
+
       <Center
         style={{
           flex: 3,
@@ -88,6 +90,7 @@ const Timer = ({ navigation, route }) => {
           </Button>
         </TouchableOpacity>
       </Center>
+
     </SafeAreaView>
   );
 };
