@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   StatusBar,
   SafeAreaView,
   TouchableOpacity,
+  Platform,
+  BackHandler,
+  ToastAndroid
 } from "react-native";
 import { Text, Box, Image, Button } from "native-base";
 import { useFonts } from "expo-font";
@@ -18,6 +21,34 @@ const customFonts = {
 const HomeScreen = ({ navigation, route }) => {
   const [isFontLoaded] = useFonts(customFonts);
   const [language, setLanguage] = useState("fa-IR");
+
+  const [exitApp, setExitApp] = useState(0);
+
+
+  // const backAction = () => {
+  //   if (navigation.getState().routes[0].name == "Home") {
+  //     setTimeout(() => {
+  //       setExitApp(0);
+  //     }, 2000); // 2 seconds to tap second-time
+
+  //     if (exitApp === 0) {
+  //       setExitApp(exitApp + 1);
+
+  //       ToastAndroid.show('to exit app double click', ToastAndroid.SHORT);
+  //     } else if (exitApp === 1) {
+  //       BackHandler.exitApp();
+  //     }
+  //     return true;
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   const backHandler = BackHandler.addEventListener(
+  //     'hardwareBackPress',
+  //     backAction,
+  //   );
+  //   return () => backHandler.remove();
+  // });
 
   i18n.fallbacks = true;
   i18n.translations = { en, fa };
