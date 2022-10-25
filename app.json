@@ -13,7 +13,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.chatalCity.spyGame"
@@ -28,6 +30,11 @@
     },
     "web": {
       "favicon": "./assets/icons/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "661fab1b-96d8-477d-81b5-559b54c72b13"
+      }
     }
   }
 }
